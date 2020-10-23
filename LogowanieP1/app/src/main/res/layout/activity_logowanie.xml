@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutGlownyLogowanie"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/tlo"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+
+
+    tools:context=".Logowanie">
+
+
+    <EditText
+        android:layout_marginTop="170dp"
+        android:id="@+id/emailET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="E-mail"
+        android:inputType="textPersonName" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/hasloET"
+            android:layout_width="381dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Hasło"
+            android:inputType="textPassword" />
+
+        <ImageView
+            android:id="@+id/pokazHasloB3"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_menu_view" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/logowanieB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_dark_background"
+        android:paddingHorizontal="30dp"
+        android:text="Zaloguj się"
+        android:textColor="@color/eye_background" />
+
+    <TextView
+        android:paddingTop="15dp"
+        android:textAlignment="center"
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nie masz konta?" />
+
+    <TextView
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Załóż konto" />
+
+</LinearLayout>
