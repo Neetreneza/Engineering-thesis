@@ -3,9 +3,10 @@ package com.example.logowaniep1;
 
 // R = rejestracja
 // RT =  String wyjety z pol edycyjnych rejestracji | do sprawdzenia poprawnosci wpisywanych tresci
-// TODO polaczenie z baza
+// TODO polaczenie z baza DONE
 // TODO wymogi co do wpisywanych tresci, hashowanie hasla
 // TODO automatyczne logowanie po udanej rejestracji
+// TODO OPTYMALIZACJA szczegolnie przy hashowaniu,najpierw wyszukac pasujacy email, dopiero potem sprawdzic czy dla asujace maila, haslo tez jest dobre
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -162,7 +163,7 @@ public class Rejestracja extends AppCompatActivity {
             String dataUrodzeniaPattern = "^\\d{4}-\\d{2}-\\d{2}$";
             if(dataUrodzeniaRT.matches(dataUrodzeniaPattern));
             else
-                b+="Datę należy podać w formacie YYYY-MM-DD";
+                b+="Datę należy podać w formacie YYYY-MM-DD\n";
 
 
 

@@ -71,6 +71,7 @@
         android:orientation="horizontal">
 
         <EditText
+            android:layout_marginBottom="20dp"
             android:id="@+id/haslo2R"
             android:layout_width="367dp"
             android:layout_height="wrap_content"

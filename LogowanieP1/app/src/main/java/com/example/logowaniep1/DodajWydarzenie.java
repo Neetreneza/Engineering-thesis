@@ -20,11 +20,7 @@ public class DodajWydarzenie extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dodaj_wydarzenie);
 
-        nazwa = (EditText) findViewById(R.id.nazwaET);
-        cena = (EditText) findViewById(R.id.cenaET);
-        start = (EditText) findViewById(R.id.startET);
-        koniec = (EditText) findViewById(R.id.koniecET);
-        dodajWydarzenie = (Button) findViewById(R.id.dodajWydarzenie);
+
         headUser = ustalHeadUser();
 
         dodajWydarzenie.setOnClickListener(new View.OnClickListener() {

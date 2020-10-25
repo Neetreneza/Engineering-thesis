@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button logowanie,wydarzenia,profil,obiekty,profilW, rejestracja;
+    Button logowanie,wydarzenia,profil,obiekty,profilW, rejestracja, dodajObiekt;
     boolean zalogowany=false;
     TextView tresc;
 
@@ -33,6 +33,14 @@ public class MainActivity extends AppCompatActivity {
       profilW = (Button) findViewById(R.id.przejdzDoProfiluWlascB);
       rejestracja = (Button) findViewById(R.id.przejdzDoRejestracjiB);
       tresc = (TextView) findViewById(R.id.trescZalogwanych);
+      dodajObiekt = (Button) findViewById(R.id.przejdzDoDodawanieObiektu);
+
+      dodajObiekt.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              otworzDodawanieObiektu();
+          }
+      });
 
 
       profilW.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +84,12 @@ public class MainActivity extends AppCompatActivity {
               otworzObiekty();
           }
       });
+    }
+
+    private void otworzDodawanieObiektu()
+    {
+        Intent intent = new Intent(this, DodajObiekt.class);
+        startActivity(intent);
     }
 
     private void otworzProfilWlasciciela() {

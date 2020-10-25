@@ -10,7 +10,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello Zoom!"
+        android:text="Hello Teams!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -94,5 +94,15 @@
         android:text="Rejestracja"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/przejdzDoObiektow" />
+
+    <Button
+        android:id="@+id/przejdzDoDodawanieObiektu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="14dp"
+        android:text="Dodaj Obiekt"
+        app:layout_constraintStart_toEndOf="@+id/przejdzDoRejestracjiB"
+        app:layout_constraintTop_toBottomOf="@+id/przejdzDoProfiluWlascB" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

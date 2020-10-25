@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DodajObiekt">
+
+    <EditText
+        android:id="@+id/nazwaDO"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nazwa obiektu" />
+
+    <EditText
+        android:id="@+id/miejscowoscDO"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Miejscowość"/>
+
+    <EditText
+        android:id="@+id/ulicaDO"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ulica"/>
+
+    <EditText
+        android:id="@+id/numerLokaluDO"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Numer lokalu"/>
+
+    <EditText
+        android:id="@+id/wojewodztwoDO"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Województwo"/>
+
+    <EditText
+        android:id="@+id/kodPocztowyDO"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Kod pocztowy"/>
+
+    <EditText
+        android:id="@+id/emailDO"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="E-mail do właściciela" />
+
+    <EditText
+        android:id="@+id/telefonDO"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Telefon do właściciela"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/krytyDO"
+            android:layout_width="285dp"
+            android:layout_height="wrap_content"
+            android:hint="Czy obiekt jest kryty?"
+            android:editable="false" />
+
+        <Button
+            android:id="@+id/krytyTDO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Tak"
+            />
+
+        <Button
+            android:id="@+id/krytyNDO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Nie" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/szatniaDO"
+            android:layout_width="285dp"
+            android:layout_height="wrap_content"
+            android:hint="Czy obiekt udostępnia szatnie?"
+            android:editable="false"/>
+
+        <Button
+            android:id="@+id/szatnieTDO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Tak" />
+
+        <Button
+            android:id="@+id/szatnieNDO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Nie" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/oplataDO"
+            android:layout_width="285dp"
+            android:layout_height="wrap_content"
+            android:hint="Czy obiekt jest płatny"
+            android:editable="false"/>
+
+        <Button
+            android:id="@+id/platnyTDO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Tak" />
+
+        <Button
+            android:id="@+id/platnyNDO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Nie" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/numerRachunkuDO"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Numer rachunku" />
+
+    <EditText
+        android:id="@+id/opisDO"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Opis" />
+
+    <Button
+        android:id="@+id/dodajObiektDO"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dodaj obiekt" />
+
+
+</LinearLayout>
