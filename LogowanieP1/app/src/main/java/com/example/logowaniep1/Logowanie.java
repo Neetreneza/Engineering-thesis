@@ -125,6 +125,10 @@ public class Logowanie extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
 
+            if (!isFinishing() && progressDialog!= null) {
+                progressDialog = ProgressDialog.show(Logowanie.this, "Please Wait",null, true, true);
+            }
+
 
             progressDialog.setMessage("Przetwarzanie...");
             progressDialog.show();
@@ -195,6 +199,11 @@ public class Logowanie extends AppCompatActivity {
 
                 setResult(RESULT_OK, resultIntent);
                 finish();
+
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                    progressDialog = null;
+                }
 
             }
         }

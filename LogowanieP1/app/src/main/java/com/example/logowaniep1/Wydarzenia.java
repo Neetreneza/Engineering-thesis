@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class Wydarzenia extends AppCompatActivity {
 
-    Button dodaj;
+    Button dodajWydarzenie,TEST;
     ArrayList<ExampleItem> exampleList;
     private RecyclerView recyclerView;
     private ExampleAdapter adapter;
@@ -37,12 +37,17 @@ public class Wydarzenia extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wydarzenia);
 
+        dodajWydarzenie = (Button) findViewById(R.id.dodajWydB);
+        TEST = (Button) findViewById(R.id.TestButton1);
+
+        TEST.setText("Prosze dzialac");
+
         createExampleList();
         buildRecyclerView();
 
-        dodaj = (Button) findViewById(R.id.dodaj);
 
-        dodaj.setOnClickListener(new View.OnClickListener() {
+
+        dodajWydarzenie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dodajWydarzenie();

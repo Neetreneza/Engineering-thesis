@@ -23,6 +23,8 @@ public class DodajWydarzenie extends AppCompatActivity {
 
         headUser = ustalHeadUser();
 
+        dodajWydarzenie.setText("Blad");
+
         dodajWydarzenie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

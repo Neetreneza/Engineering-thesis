@@ -114,8 +114,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public  void otworzWydarzenia() {
-        if(!zalogowany) otworzLogowanie();
-        else
+        //if(!zalogowany) otworzLogowanie();
+        //else
         {
             Intent intent = new Intent(this,Wydarzenia.class);
             startActivity(intent);

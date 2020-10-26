@@ -35,6 +35,8 @@ public class DodajObiekt extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_dodaj_obiekt);
 
+
+
         progressDialog = new ProgressDialog(this);
 
         nazwa = (EditText) findViewById(R.id.nazwaDO);
