@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DodajObiekt"></activity>
+        <activity android:name=".PrzegladWydarzen"></activity>
+        <activity android:name=".DodajObiekt" />
         <activity android:name=".Rejestracja" />
         <activity android:name=".Obiekty" />
         <activity android:name=".ProfilWlasciciel" />

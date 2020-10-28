@@ -105,4 +105,14 @@
         app:layout_constraintStart_toEndOf="@+id/przejdzDoRejestracjiB"
         app:layout_constraintTop_toBottomOf="@+id/przejdzDoProfiluWlascB" />
 
+    <Button
+        android:id="@+id/przejdzDoPrzegladWydarzenB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="21dp"
+        android:text="Przeglądanie wydarzeń"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/przejdzDoRejestracjiB" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

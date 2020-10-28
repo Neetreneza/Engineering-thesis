@@ -184,7 +184,7 @@ public class Rejestracja extends AppCompatActivity {
 
                     Class.forName("com.mysql.jdbc.Driver");
 
-                    Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.102:3306/aplikacja", "andro", "andro");
+                    Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.100:3306/aplikacja", "andro", "andro");
 
                     Statement statement = connection.createStatement();
 

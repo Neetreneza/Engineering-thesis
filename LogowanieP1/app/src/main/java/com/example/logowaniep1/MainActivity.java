@@ -35,13 +35,16 @@ public class MainActivity extends AppCompatActivity {
       tresc = (TextView) findViewById(R.id.trescZalogwanych);
       dodajObiekt = (Button) findViewById(R.id.przejdzDoDodawanieObiektu);
 
+
+
+
+
       dodajObiekt.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
               otworzDodawanieObiektu();
           }
       });
-
 
       profilW.setOnClickListener(new View.OnClickListener() {
           @Override
@@ -86,13 +89,15 @@ public class MainActivity extends AppCompatActivity {
       });
     }
 
-    private void otworzDodawanieObiektu()
+
+
+    public void otworzDodawanieObiektu()
     {
         Intent intent = new Intent(this, DodajObiekt.class);
         startActivity(intent);
     }
 
-    private void otworzProfilWlasciciela() {
+    public void otworzProfilWlasciciela() {
         Intent intent = new Intent(this,ProfilWlasciciel.class);
         startActivity(intent);
     }

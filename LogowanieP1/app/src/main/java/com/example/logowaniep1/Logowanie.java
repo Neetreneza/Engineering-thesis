@@ -125,9 +125,9 @@ public class Logowanie extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
 
-            if (!isFinishing() && progressDialog!= null) {
-                progressDialog = ProgressDialog.show(Logowanie.this, "Please Wait",null, true, true);
-            }
+//            if (!isFinishing() && progressDialog!= null) {
+//                progressDialog = ProgressDialog.show(Logowanie.this, "Please Wait",null, true, true);
+//            }
 
 
             progressDialog.setMessage("Przetwarzanie...");
@@ -149,7 +149,7 @@ public class Logowanie extends AppCompatActivity {
 
                     Class.forName("com.mysql.jdbc.Driver");
 
-                    Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.102:3306/aplikacja", "andro", "andro");
+                    Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.100:3306/aplikacja", "andro", "andro");
 
                     Statement statement = connection.createStatement();
 
