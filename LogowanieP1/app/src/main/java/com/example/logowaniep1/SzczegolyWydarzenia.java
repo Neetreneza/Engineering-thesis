@@ -36,5 +36,7 @@ public class SzczegolyWydarzenia extends AppCompatActivity {
 
 
 
+
+
     }
 }

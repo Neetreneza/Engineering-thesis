@@ -53,7 +53,7 @@
                 app:srcCompat="@drawable/email" />
 
             <ImageView
-                android:id="@+id/imageView8"
+                android:id="@+id/ustawieniaProfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -77,23 +77,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                >
 
-                <TextView
-                    android:id="@+id/ProfilTV1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Nazwa" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/nazwaProfilET"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name" />
+                    <EditText
+                        android:id="@+id/nazwaProfilET"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:editable="false"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="Name"
+                        android:textAlignment="viewEnd" />
+
+                    <EditText
+                        android:id="@+id/nazwiskoProfilET"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:editable="false"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="Name"
+                        android:textAlignment="viewStart" />
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -101,37 +116,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/ProfilTV3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="E-mail" />
+                    android:text="E-mail"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"
+                    />
 
-                <TextView
+                <EditText
                     android:id="@+id/emailProfilET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="email" />
+                    android:text="email"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="10dp"
+                    android:editable="false"
+                    />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/ProfilTV4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Ocena" />
+                    android:text="Ocena"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"
+                    />
+
 
                 <TextView
                     android:id="@+id/ocenaProfilET"
@@ -140,60 +167,85 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="0" />
+                    android:text="0"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="10dp"
+                    />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/ProfilT5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Stworzone wydarzenia" />
+                    android:text="Data Urodzenia"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"
+                    />
 
-                <TextView
-                    android:id="@+id/SWydarzeniaProfilET"
+                <EditText
+                    android:id="@+id/dataUrodzeniaProfilET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="1" />
+                    android:text="1"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="10dp"
+                    android:editable="false"
+                    />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/ProfilTV6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Zapisanych wydarzeń" />
+                    android:text="Telefon"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp" />
 
-                <TextView
-                    android:id="@+id/ZWydarzeniaProfilET"
+                <EditText
+                    android:id="@+id/telefonET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="3" />
+                    android:text="3"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="10dp"
+                    />
+
+                <Button
+                    android:id="@+id/zapiszUstawieniaProfiluB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Zapisz"
+                    android:visibility="gone"
+                    tools:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/ProfilTV7"
@@ -234,6 +286,8 @@
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:text="Brak" />
+
+
             </LinearLayout>
 
             <LinearLayout

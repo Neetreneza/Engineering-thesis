@@ -124,7 +124,7 @@ public class Logowanie extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-
+            super.onPreExecute();
 //            if (!isFinishing() && progressDialog!= null) {
 //                progressDialog = ProgressDialog.show(Logowanie.this, "Please Wait",null, true, true);
 //            }
@@ -134,7 +134,7 @@ public class Logowanie extends AppCompatActivity {
             progressDialog.show();
 
 
-            super.onPreExecute();
+
         }
 
         @Override
@@ -165,6 +165,10 @@ public class Logowanie extends AppCompatActivity {
                             isSuccess = true;
                             Log.i("email", "moj mail " + emailstr + " :: " + resultSet.getString(1)  +" || moj haslo: " + passstr + " :: " + resultSet.getString(2));
                            z = "Logowanie udane";
+
+                           Singleton.getInstance().setUzytkownikID(resultSet.getString(1));
+
+
                            wyjdz = true;
                         }
                         else
@@ -187,9 +191,15 @@ public class Logowanie extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
-            Toast.makeText(getBaseContext(),""+z, Toast.LENGTH_LONG).show();
-
+            super.onPostExecute(s);
             progressDialog.hide();
+
+
+            Toast.makeText(getBaseContext(),""+z, Toast.LENGTH_LONG).show();
+//            if (progressDialog != null && progressDialog.isShowing()) {
+//                progressDialog.dismiss();
+//                progressDialog = null;
+//            }
             if(isSuccess) {
 
             Log.i("Baza","Wynik to "+z);
@@ -200,12 +210,10 @@ public class Logowanie extends AppCompatActivity {
                 setResult(RESULT_OK, resultIntent);
                 finish();
 
-                if (progressDialog != null && progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                    progressDialog = null;
+
                 }
 
-            }
+
         }
     }
 

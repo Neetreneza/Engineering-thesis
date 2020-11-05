@@ -31,7 +31,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
     public static class ExampleViewHolder extends  RecyclerView.ViewHolder
     {
         public ImageView imageView, imageView2;
-        public TextView textView1, textView2, start, koniec;
+        public TextView textView1, textView2, start, koniec, miejsce;
         public String headUser;
 
 
@@ -44,6 +44,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
             imageView2 = itemView.findViewById(R.id.imageView2); //Usuwajka
             start =  itemView.findViewById(R.id.startTextView);
             koniec = itemView.findViewById(R.id.koniecTextView);
+            miejsce = itemView.findViewById(R.id.miejsceTV);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -104,6 +105,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         holder.start.setText(currentItem.getStart());
         holder.koniec.setText(currentItem.getKoniec());
         holder.headUser = currentItem.getHeadUser();
+        holder.miejsce.setText(currentItem.getMiejsceE());
     }
 
     @Override

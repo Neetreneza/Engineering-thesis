@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button logowanie,wydarzenia,profil,obiekty,profilW, rejestracja, dodajObiekt;
     boolean zalogowany=false;
-    TextView tresc;
+    TextView tresc,test;
 
     String[] dane;
     String emailBaza, hasloBaza;
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
       rejestracja = (Button) findViewById(R.id.przejdzDoRejestracjiB);
       tresc = (TextView) findViewById(R.id.trescZalogwanych);
       dodajObiekt = (Button) findViewById(R.id.przejdzDoDodawanieObiektu);
+      test = (TextView) findViewById(R.id.textView);
 
 
 
@@ -143,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
         {
             tresc.setVisibility(View.INVISIBLE);
             logowanie.setText("Logowanie");
+            Singleton.getInstance().setUzytkownikID(null);
         }
     }
 
@@ -181,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     tresc.setVisibility(View.VISIBLE);
                     logowanie.setText("Wyloguj");
+                    test.setText(Singleton.getInstance().getUzytkownikID());
                 }
                 else
                 {
@@ -194,3 +197,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+
+

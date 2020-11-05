@@ -16,12 +16,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Wydarzenia extends AppCompatActivity {
@@ -31,6 +38,7 @@ public class Wydarzenia extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ExampleAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +48,13 @@ public class Wydarzenia extends AppCompatActivity {
         dodajWydarzenie = (Button) findViewById(R.id.dodajWydB);
         TEST = (Button) findViewById(R.id.TestButton1);
 
+        progressDialog = new ProgressDialog(this);
+        exampleList = new ArrayList<>();
+
         TEST.setText("Prosze dzialac");
 
-        createExampleList();
-        buildRecyclerView();
-
-
+        createExampleList CEL = new createExampleList();
+        CEL.execute();
 
         dodajWydarzenie.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,21 +65,79 @@ public class Wydarzenia extends AppCompatActivity {
 
     }
 
-    public void createExampleList()
+    public class createExampleList  extends AsyncTask<String,String,String>
     {
-        exampleList =  new ArrayList<>();
-        exampleList.add(new ExampleItem(R.drawable.running,"Bieganie 10km","Darmowe","12.11.2020","12:00 - 13:00",R.drawable.delete,"Andrzej"));
-        exampleList.add(new ExampleItem(R.drawable.bike,"Rower 18,5km","30zł","15.11.2020","8:00 - 9:45",R.drawable.delete,"Duda"));
-        exampleList.add(new ExampleItem(R.drawable.bed,"Drzemka","Darmowe","18.07.2021","10:00 - 10:30",R.drawable.delete,"PawelG"));
+//        exampleList =  new ArrayList<>();
+//        exampleList.add(new ExampleItem(R.drawable.running,"Bieganie 10km","Darmowe","12.11.2020","12:00 - 13:00",R.drawable.delete,"Andrzej"));
+//        exampleList.add(new ExampleItem(R.drawable.bike,"Rower 18,5km","30zł","15.11.2020","8:00 - 9:45",R.drawable.delete,"Duda"));
+//        exampleList.add(new ExampleItem(R.drawable.bed,"Drzemka","Darmowe","18.07.2021","10:00 - 10:30",R.drawable.delete,"PawelG"));
+//
+//        exampleList.add(new ExampleItem(R.drawable.running,"Bieganie 10km","Darmowe","12.11.2020","12:00 - 13:00",R.drawable.delete,"Andrzej"));
+//        exampleList.add(new ExampleItem(R.drawable.bike,"Rower 18,5km","30zł","15.11.2020","8:00 - 9:45",R.drawable.delete,"Duda"));
+//        exampleList.add(new ExampleItem(R.drawable.bed,"Drzemka","Darmowe","18.07.2021","10:00 - 10:30",R.drawable.delete,"PawelG"));
+//
+//        exampleList.add(new ExampleItem(R.drawable.running,"Bieganie 10km","Darmowe","12.11.2020","12:00 - 13:00",R.drawable.delete,"Andrzej"));
+//        exampleList.add(new ExampleItem(R.drawable.bike,"Rower 18,5km","30zł","15.11.2020","8:00 - 9:45",R.drawable.delete,"Duda"));
+//       exampleList.add(new ExampleItem(R.drawable.bed,"Drzemka","Darmowe","18.07.2021","10:00 - 10:30",R.drawable.delete,"PawelG"));
 
-        exampleList.add(new ExampleItem(R.drawable.running,"Bieganie 10km","Darmowe","12.11.2020","12:00 - 13:00",R.drawable.delete,"Andrzej"));
-        exampleList.add(new ExampleItem(R.drawable.bike,"Rower 18,5km","30zł","15.11.2020","8:00 - 9:45",R.drawable.delete,"Duda"));
-        exampleList.add(new ExampleItem(R.drawable.bed,"Drzemka","Darmowe","18.07.2021","10:00 - 10:30",R.drawable.delete,"PawelG"));
+        String data, czasRozpoczecia, czasZakonczenia, dyscyplinaNazwa, cena, zakladajacy, miasto, ulica, nrLokalu, miejsce;
 
-        exampleList.add(new ExampleItem(R.drawable.running,"Bieganie 10km","Darmowe","12.11.2020","12:00 - 13:00",R.drawable.delete,"Andrzej"));
-        exampleList.add(new ExampleItem(R.drawable.bike,"Rower 18,5km","30zł","15.11.2020","8:00 - 9:45",R.drawable.delete,"Duda"));
-        exampleList.add(new ExampleItem(R.drawable.bed,"Drzemka","Darmowe","18.07.2021","10:00 - 10:30",R.drawable.delete,"PawelG"));
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.setMessage("Przetwarzanie...");
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            try {
+
+            Class.forName("com.mysql.jdbc.Driver");
+
+            Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.100:3306/aplikacja", "andro", "andro");
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery("select wydarzenie.data, wydarzenie.organizator_id, wydarzenie.czas_rozpoczecia, wydarzenie.czas_zakonczenia, wydarzenie.dyscyplina_id, wydarzenie.obiekt_id, obiekt_cennik.cena, dyscyplina.nazwa, obiekt.nazwa, obiekt.obiekt_id, obiekt.miejscowosc, obiekt.ulica, obiekt.numer_lokalu from wydarzenie, obiekt_cennik, dyscyplina, obiekt where obiekt.obiekt_id = wydarzenie.obiekt_id and obiekt_cennik.obiekt_id = obiekt.obiekt_id and wydarzenie.obiekt_id = obiekt_cennik.obiekt_id and wydarzenie.dyscyplina_id = obiekt_cennik.dyscyplina_id and dyscyplina.dyscyplina_id = wydarzenie.dyscyplina_id");
+
+            while (resultSet.next()) {
+// DODAC FILTROWANIE WYNIKOW
+                Log.i("while","Czytam z wynikow");
+                data = resultSet.getString(1);
+                czasRozpoczecia = resultSet.getString(3);
+                czasZakonczenia = resultSet.getString(4);
+                dyscyplinaNazwa = resultSet.getString(8);
+                cena = resultSet.getString(7);
+                zakladajacy = resultSet.getString(2);
+                miasto = resultSet.getString(11);
+                ulica = resultSet.getString(12);
+                nrLokalu = resultSet.getString(13);
+                miejsce = miasto+", "+ulica+" "+nrLokalu;
+                if(miejsce.length()>20)
+                miejsce = miasto;
+
+                exampleList.add(new ExampleItem(R.drawable.bike, dyscyplinaNazwa,  cena+"zł", data, czasRozpoczecia.substring(0, czasRozpoczecia.length() - 3)+" - "+czasZakonczenia.substring(0, czasRozpoczecia.length() - 3), R.drawable.delete, zakladajacy,miejsce));
+
+
+            }
+            connection.close();
+        } catch (Exception e) {
+        System.err.println("Błąd: ");
+        System.err.println(e.getMessage());
+    }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            progressDialog.hide();
+            buildRecyclerView();
+        }
     }
 
     public void buildRecyclerView()
@@ -156,13 +223,14 @@ public class Wydarzenia extends AppCompatActivity {
               String startNowe = data.getStringExtra("start");
               String koniecNowe = data.getStringExtra("koniec");
               String headUser = data.getStringExtra("headUser");
+              String miejsce = data.getStringExtra("miejsce");
               int zdj=0;
 
               if(nazwaNowe.contains("Bieganie")) zdj = R.drawable.running; //totalnie glupie, ale narazie przejdzie
               else if(nazwaNowe.contains("Rower")) zdj = R.drawable.bike; // zasada dzialania znana
               else zdj = R.drawable.domyslne;
 
-              exampleList.add(new ExampleItem(zdj,nazwaNowe,cenaNowe,startNowe,koniecNowe,R.drawable.delete,headUser));
+              exampleList.add(new ExampleItem(zdj,nazwaNowe,cenaNowe,startNowe,koniecNowe,R.drawable.delete,headUser, miejsce));
               adapter.notifyItemInserted(exampleList.size());// w argumencie podajemy pozycje dodanego elementu
 
             }
