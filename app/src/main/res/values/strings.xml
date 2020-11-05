@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">LogowanieP1</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="nazwaObiektu">Nazwa: </string>
+    <string name="miejscowosc">Miejscowość: </string>
+    <string name="ulica">Ulica: </string>
+    <string name="nr_lokalu">Numer lokalu: </string>
+    <string name="wojewodztwo">Województwo: </string>
+    <string name="kod_pocztowy">Kod pocztowy: </string>
+    <string name="email">Email: </string>
+    <string name="telefon">Telefon: </string>
+    <string name="nr_rachunku">Numer rachunku: </string>
+    <string name="opis">Opis: </string>
+
+    <string name="akceptuj">Akceptuj</string>
+    <string name="odrzuc">Odrzuć</string>
+</resources>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConstraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello Teams!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/przejdzDoLogwaniaB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="14dp"
+        android:text="Logowanie"
+        app:layout_constraintEnd_toStartOf="@+id/przejdzDoWydarzenB"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/trescZalogwanych"
+        android:layout_width="103dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="159dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="149dp"
+        android:layout_marginBottom="191dp"
+        android:text="Tresci dla zalogowanego"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/przejdzDoLogwaniaB" />
+    
+
+    <Button
+        android:id="@+id/przejdzDoProfiluB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
+        android:text="Profil"
+        app:layout_constraintStart_toEndOf="@+id/przejdzDoWydarzenB"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/przejdzDoObiektow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Obiekty"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/przejdzDoWydarzenB" />
+
+    <Button
+        android:id="@+id/przejdzDoProfiluWlascB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="24dp"
+        android:text="Profil If Wlasciciel"
+        app:layout_constraintStart_toEndOf="@+id/przejdzDoObiektow"
+        app:layout_constraintTop_toBottomOf="@+id/przejdzDoProfiluB" />
+
+    <Button
+        android:id="@+id/przejdzDoRejestracjiB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="14dp"
+        android:text="Rejestracja"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/przejdzDoObiektow" />
+
+    <Button
+        android:id="@+id/przejdzDoDodawanieObiektu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="14dp"
+        android:text="Dodaj Obiekt"
+        app:layout_constraintStart_toEndOf="@+id/przejdzDoRejestracjiB"
+        app:layout_constraintTop_toBottomOf="@+id/przejdzDoProfiluWlascB" />
+
+    <Button
+        android:id="@+id/przejdzDoPrzegladWydarzenB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="21dp"
+        android:text="Przeglądanie wydarzeń"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/przejdzDoRejestracjiB" />
+
+    <Button
+        android:id="@+id/buttonAdmin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="152dp"
+        android:text="zarządzanie zgłoszeniami"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@+id/przejdzDoPrzegladWydarzenB"
+        tools:layout_editor_absoluteX="28dp" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
