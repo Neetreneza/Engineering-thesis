@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button logowanie,wydarzenia,profil,obiekty,profilW, rejestracja, dodajObiekt;
+    Button logowanie,wydarzenia,profil,obiekty,profilW, rejestracja, dodajObiekt, zarzadzanie;
     boolean zalogowany=false;
     TextView tresc,test;
 
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
       tresc = (TextView) findViewById(R.id.trescZalogwanych);
       dodajObiekt = (Button) findViewById(R.id.przejdzDoDodawanieObiektu);
       test = (TextView) findViewById(R.id.textView);
+      zarzadzanie = (Button) findViewById(R.id.buttonAdmin);
 
 
 
@@ -88,6 +89,12 @@ public class MainActivity extends AppCompatActivity {
               otworzObiekty();
           }
       });
+        zarzadzanie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                otworzPanelAdmina();
+            }
+        });
     }
 
 
@@ -166,6 +173,10 @@ public class MainActivity extends AppCompatActivity {
             logowanie.setText("Logowanie");
         }
     }
+    public void otworzPanelAdmina(){
+        Intent intent = new Intent(this, ZarzadzanieAdmin.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -184,11 +195,13 @@ public class MainActivity extends AppCompatActivity {
                 {
                     tresc.setVisibility(View.VISIBLE);
                     logowanie.setText("Wyloguj");
+                    zarzadzanie.setVisibility(View.VISIBLE);
                     test.setText(Singleton.getInstance().getuzytkownikEmail());
                 }
                 else
                 {
                     tresc.setVisibility(View.INVISIBLE);
+                    zarzadzanie.setVisibility(View.INVISIBLE);
                 }
             }
         }

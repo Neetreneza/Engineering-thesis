@@ -104,7 +104,7 @@ public class Obiekty extends AppCompatActivity {
                 connection = ConnectionManager.getConnection();
                 statement = connection.createStatement();
 
-                ResultSet resultSet = statement.executeQuery("select obiekt.*, obiekt_cennik.*, dyscyplina.* from obiekt,obiekt_cennik, dyscyplina where obiekt.obiekt_id = obiekt_cennik.obiekt_id and obiekt_cennik.dyscyplina_id = dyscyplina.dyscyplina_id;");
+                ResultSet resultSet = statement.executeQuery("select obiekt.*, obiekt_cennik.*, dyscyplina.* from obiekt,obiekt_cennik, dyscyplina where aktywny = 1 and obiekt.obiekt_id = obiekt_cennik.obiekt_id and obiekt_cennik.dyscyplina_id = dyscyplina.dyscyplina_id;");
                 while (resultSet.next()) {
 // DODAC FILTROWANIE WYNIKOW
                     Log.i("while","Czytam z wynikow");
@@ -180,13 +180,18 @@ public class Obiekty extends AppCompatActivity {
 
     public void buildRecyclerView2()
     {
+        Log.i("while","1");
         recyclerView2 = findViewById(R.id.recyclerViewObiekty);
         recyclerView2.setHasFixedSize(true);
+        Log.i("while","2");
         layoutManager2 = new LinearLayoutManager(this);
         adapter2 = new ObiektAdapter(obiektyList);
+        Log.i("while","3");
 
         recyclerView2.setLayoutManager(layoutManager2);
+        Log.i("while","4");
         recyclerView2.setAdapter(adapter2);
+        Log.i("while","5");
 
         adapter2.setOnItemClickListener(new ObiektAdapter.onItemClickListener() {
             @Override

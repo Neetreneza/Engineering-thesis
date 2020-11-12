@@ -115,4 +115,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/przejdzDoRejestracjiB" />
 
+    <Button
+        android:id="@+id/buttonAdmin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="124dp"
+        android:text="zarządzanie zgłoszeniami"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/przejdzDoPrzegladWydarzenB" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

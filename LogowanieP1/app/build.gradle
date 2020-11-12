@@ -36,6 +36,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation files('libs/mysql-connector-java-5.1.49.jar')
 
+    dependencies {
+        implementation 'com.jakewharton:butterknife:10.2.3'
+        annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+    }
 
     def room_version = "2.2.5"
 
