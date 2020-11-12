@@ -2,7 +2,8 @@ package com.example.logowaniep1;
 
 public class Singleton {
     private static final Singleton INSTANCE = new Singleton();
-    private String uzytkownikID; // email tu siedzi
+    private String uzytkownikEmail; // email tu siedzi
+    private int uzytkownikID;
 
     private Singleton() {
     }
@@ -11,11 +12,20 @@ public class Singleton {
         return INSTANCE;
     }
 
-    public String getUzytkownikID() {
+    public int getUzytkownikID() {
         return uzytkownikID;
     }
 
-    public void setUzytkownikID(String uzytkownikID) {
+    public void setUzytkownikID(int uzytkownikID) {
         this.uzytkownikID = uzytkownikID;
     }
+    public String getuzytkownikEmail()
+    {
+        return uzytkownikEmail;
+    }
+    public void setUzytkownikEmail(String em)
+    {
+        this.uzytkownikEmail = em;
+    }
+
 }

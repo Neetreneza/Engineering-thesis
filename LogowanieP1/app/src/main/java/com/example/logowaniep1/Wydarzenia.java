@@ -40,6 +40,10 @@ public class Wydarzenia extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     ProgressDialog progressDialog;
 
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet resultSet = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +84,8 @@ public class Wydarzenia extends AppCompatActivity {
 //        exampleList.add(new ExampleItem(R.drawable.bike,"Rower 18,5km","30zł","15.11.2020","8:00 - 9:45",R.drawable.delete,"Duda"));
 //       exampleList.add(new ExampleItem(R.drawable.bed,"Drzemka","Darmowe","18.07.2021","10:00 - 10:30",R.drawable.delete,"PawelG"));
 
-        String data, czasRozpoczecia, czasZakonczenia, dyscyplinaNazwa, cena, zakladajacy, miasto, ulica, nrLokalu, miejsce;
+        String data, czasRozpoczecia, czasZakonczenia, dyscyplinaNazwa, cena, zakladajacy, miasto, ulica, nrLokalu, miejsce, obiektId,opis;
+        int wydarzenieId;
 
 
         @Override
@@ -88,6 +93,7 @@ public class Wydarzenia extends AppCompatActivity {
             super.onPreExecute();
             progressDialog.setMessage("Przetwarzanie...");
             progressDialog.show();
+
         }
 
         @Override
@@ -95,13 +101,10 @@ public class Wydarzenia extends AppCompatActivity {
 
             try {
 
-            Class.forName("com.mysql.jdbc.Driver");
+                connection = ConnectionManager.getConnection();
+                statement = connection.createStatement();
 
-            Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.100:3306/aplikacja", "andro", "andro");
-
-            Statement statement = connection.createStatement();
-
-            ResultSet resultSet = statement.executeQuery("select wydarzenie.data, wydarzenie.organizator_id, wydarzenie.czas_rozpoczecia, wydarzenie.czas_zakonczenia, wydarzenie.dyscyplina_id, wydarzenie.obiekt_id, obiekt_cennik.cena, dyscyplina.nazwa, obiekt.nazwa, obiekt.obiekt_id, obiekt.miejscowosc, obiekt.ulica, obiekt.numer_lokalu from wydarzenie, obiekt_cennik, dyscyplina, obiekt where obiekt.obiekt_id = wydarzenie.obiekt_id and obiekt_cennik.obiekt_id = obiekt.obiekt_id and wydarzenie.obiekt_id = obiekt_cennik.obiekt_id and wydarzenie.dyscyplina_id = obiekt_cennik.dyscyplina_id and dyscyplina.dyscyplina_id = wydarzenie.dyscyplina_id");
+            ResultSet resultSet = statement.executeQuery("select wydarzenie.data, wydarzenie.organizator_id, wydarzenie.czas_rozpoczecia, wydarzenie.czas_zakonczenia, wydarzenie.dyscyplina_id, wydarzenie.obiekt_id, obiekt_cennik.cena, dyscyplina.nazwa, obiekt.nazwa, obiekt.obiekt_id, obiekt.miejscowosc, obiekt.ulica, obiekt.numer_lokalu, wydarzenie.wydarzenie_id, wydarzenie.opis from wydarzenie, obiekt_cennik, dyscyplina, obiekt where obiekt.obiekt_id = wydarzenie.obiekt_id and obiekt_cennik.obiekt_id = obiekt.obiekt_id and wydarzenie.obiekt_id = obiekt_cennik.obiekt_id and wydarzenie.dyscyplina_id = obiekt_cennik.dyscyplina_id and dyscyplina.dyscyplina_id = wydarzenie.dyscyplina_id");
 
             while (resultSet.next()) {
 // DODAC FILTROWANIE WYNIKOW
@@ -115,14 +118,16 @@ public class Wydarzenia extends AppCompatActivity {
                 miasto = resultSet.getString(11);
                 ulica = resultSet.getString(12);
                 nrLokalu = resultSet.getString(13);
+                obiektId = resultSet.getString(6);
+                wydarzenieId = resultSet.getInt(14);
+                opis = resultSet.getString(15);
                 miejsce = miasto+", "+ulica+" "+nrLokalu;
-                if(miejsce.length()>20)
-                miejsce = miasto;
+//                if(miejsce.length()>20)
+//                miejsce = miasto;
 
-                exampleList.add(new ExampleItem(R.drawable.bike, dyscyplinaNazwa,  cena+"zł", data, czasRozpoczecia.substring(0, czasRozpoczecia.length() - 3)+" - "+czasZakonczenia.substring(0, czasRozpoczecia.length() - 3), R.drawable.delete, zakladajacy,miejsce));
-
-
+                exampleList.add(new ExampleItem(R.drawable.bike, dyscyplinaNazwa,  cena+"zł", data, czasRozpoczecia.substring(0, czasRozpoczecia.length() - 3)+" - "+czasZakonczenia.substring(0, czasRozpoczecia.length() - 3), R.drawable.delete, zakladajacy,miejsce,obiektId,wydarzenieId,opis));
             }
+
             connection.close();
         } catch (Exception e) {
         System.err.println("Błąd: ");
@@ -184,6 +189,10 @@ public class Wydarzenia extends AppCompatActivity {
         String t3 = doPodania.getHeadUser();
         String t4 = doPodania.getKoniec();
         String t5 = doPodania.getStart();
+        String t6 = doPodania.getMiejsceE();
+        String t7 = doPodania.getObiektId();
+        String t9 = doPodania.getOpis();
+        int t8 = doPodania.getWydarzenieId();
         int i1 = doPodania.getImageResource();
 
         intentSzczegoly.putExtra("nazwa",t1);
@@ -192,6 +201,10 @@ public class Wydarzenia extends AppCompatActivity {
         intentSzczegoly.putExtra("koniec",t4);
         intentSzczegoly.putExtra("start",t5);
         intentSzczegoly.putExtra("img",i1);
+        intentSzczegoly.putExtra("miejsce",t6);
+        intentSzczegoly.putExtra("obiektId", t7);
+        intentSzczegoly.putExtra("wydarzenieId", t8);
+        intentSzczegoly.putExtra("opis",t9);
 
         startActivity(intentSzczegoly);
 
@@ -212,28 +225,29 @@ public class Wydarzenia extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
-        //powrot danych z akwtywnosci DodajWydarzenie
-        if(requestCode == 1)
-        {
-            if(resultCode == RESULT_OK)
-            {
-              String nazwaNowe = data.getStringExtra("nazwa");
-              String cenaNowe = data.getStringExtra("cena");
-              String startNowe = data.getStringExtra("start");
-              String koniecNowe = data.getStringExtra("koniec");
-              String headUser = data.getStringExtra("headUser");
-              String miejsce = data.getStringExtra("miejsce");
-              int zdj=0;
-
-              if(nazwaNowe.contains("Bieganie")) zdj = R.drawable.running; //totalnie glupie, ale narazie przejdzie
-              else if(nazwaNowe.contains("Rower")) zdj = R.drawable.bike; // zasada dzialania znana
-              else zdj = R.drawable.domyslne;
-
-              exampleList.add(new ExampleItem(zdj,nazwaNowe,cenaNowe,startNowe,koniecNowe,R.drawable.delete,headUser, miejsce));
-              adapter.notifyItemInserted(exampleList.size());// w argumencie podajemy pozycje dodanego elementu
-
-            }
-        }
+//
+//        //powrot danych z akwtywnosci DodajWydarzenie
+//        if(requestCode == 1)
+//        {
+//            if(resultCode == RESULT_OK)
+//            {
+//              String nazwaNowe = data.getStringExtra("nazwa");
+//              String cenaNowe = data.getStringExtra("cena");
+//              String startNowe = data.getStringExtra("start");
+//              String koniecNowe = data.getStringExtra("koniec");
+//              String headUser = data.getStringExtra("headUser");
+//              String miejsce = data.getStringExtra("miejsce");
+//              String obiektId = data.getStringExtra("obiektId");
+//              int zdj=0;
+//
+//              if(nazwaNowe.contains("Bieganie")) zdj = R.drawable.running; //totalnie glupie, ale narazie przejdzie
+//              else if(nazwaNowe.contains("Rower")) zdj = R.drawable.bike; // zasada dzialania znana
+//              else zdj = R.drawable.domyslne;
+//
+//              exampleList.add(new ExampleItem(zdj,nazwaNowe,cenaNowe,startNowe,koniecNowe,R.drawable.delete,headUser, miejsce, obiektId,wydarzenieId));
+//              adapter.notifyItemInserted(exampleList.size());// w argumencie podajemy pozycje dodanego elementu
+//
+//            }
+//        }
     }
 }

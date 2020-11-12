@@ -144,7 +144,8 @@ public class MainActivity extends AppCompatActivity {
         {
             tresc.setVisibility(View.INVISIBLE);
             logowanie.setText("Logowanie");
-            Singleton.getInstance().setUzytkownikID(null);
+            Singleton.getInstance().setUzytkownikID(0);
+            Singleton.getInstance().setUzytkownikEmail(null);
         }
     }
 
@@ -183,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     tresc.setVisibility(View.VISIBLE);
                     logowanie.setText("Wyloguj");
-                    test.setText(Singleton.getInstance().getUzytkownikID());
+                    test.setText(Singleton.getInstance().getuzytkownikEmail());
                 }
                 else
                 {

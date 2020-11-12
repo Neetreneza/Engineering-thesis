@@ -49,6 +49,10 @@ public class Rejestracja extends AppCompatActivity {
     Boolean isSuccessRejestracja = false , blad = false, PH = false;
     String b;
 
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet resultSet = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -182,11 +186,8 @@ public class Rejestracja extends AppCompatActivity {
 
                 try {
 
-                    Class.forName("com.mysql.jdbc.Driver");
-
-                    Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.100:3306/aplikacja", "andro", "andro");
-
-                    Statement statement = connection.createStatement();
+                    connection = ConnectionManager.getConnection();
+                    statement = connection.createStatement();
 
                     ResultSet resultSet = statement.executeQuery("SELECT email FROM uzytkownik");
                     boolean powtarzajacyEmail = false;

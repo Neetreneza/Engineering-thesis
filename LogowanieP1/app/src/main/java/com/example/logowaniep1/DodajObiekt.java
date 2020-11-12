@@ -18,6 +18,7 @@ import android.widget.Toast;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class DodajObiekt extends AppCompatActivity {
@@ -26,6 +27,10 @@ public class DodajObiekt extends AppCompatActivity {
     int kryty, oplata, szatnia;
     Button krytyT, krytyN, oplataT, oplataN, szatniaT, szatniaN, dodajObiekt;
     ProgressDialog progressDialog;
+
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet resultSet = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,11 +216,8 @@ public class DodajObiekt extends AppCompatActivity {
                 if(blad.equals(""))
                 {
 
-                Class.forName("com.mysql.jdbc.Driver");
-
-                Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.100:3306/aplikacja", "andro", "andro");
-
-                Statement statement = connection.createStatement();
+                    connection = ConnectionManager.getConnection();
+                    statement = connection.createStatement();
 
                 String query = "insert into obiekt (nazwa,miejscowosc,ulica,numer_lokalu,wojewodztwo,kod_pocztowy,email,telefon,kryty,szatnia,oplata,numer_rachunku,opis,aktywny) values (?,?,?,?,?,?,?,?,?,?,?,?,?,0)";
 

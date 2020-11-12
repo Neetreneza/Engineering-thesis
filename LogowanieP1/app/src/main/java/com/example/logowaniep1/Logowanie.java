@@ -40,6 +40,10 @@ public class Logowanie extends AppCompatActivity {
     TextView przejdzDoRejestracji;
     //ConstraintLayout l1 = (ConstraintLayout) findViewById(R.id.layoutGlownyLogowanie);
 
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet resultSet = null;
+
 
     ProgressDialog progressDialog;
 
@@ -145,15 +149,10 @@ public class Logowanie extends AppCompatActivity {
             else {
                 try {
 
+                    connection = ConnectionManager.getConnection();
+                    statement = connection.createStatement();
 
-
-                    Class.forName("com.mysql.jdbc.Driver");
-
-                    Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.100:3306/aplikacja", "andro", "andro");
-
-                    Statement statement = connection.createStatement();
-
-                    ResultSet resultSet = statement.executeQuery("SELECT email, haslo FROM uzytkownik");
+                    ResultSet resultSet = statement.executeQuery("SELECT email, haslo, uzytkownik_id FROM uzytkownik");
                     boolean wyjdz = false;
                     while (resultSet.next() && !wyjdz) {
 //                        hashHaslo = resultSet.getBytes(2);
@@ -166,7 +165,8 @@ public class Logowanie extends AppCompatActivity {
                             Log.i("email", "moj mail " + emailstr + " :: " + resultSet.getString(1)  +" || moj haslo: " + passstr + " :: " + resultSet.getString(2));
                            z = "Logowanie udane";
 
-                           Singleton.getInstance().setUzytkownikID(resultSet.getString(1));
+                           Singleton.getInstance().setUzytkownikEmail(resultSet.getString(1));
+                           Singleton.getInstance().setUzytkownikID(resultSet.getInt(3));
 
 
                            wyjdz = true;

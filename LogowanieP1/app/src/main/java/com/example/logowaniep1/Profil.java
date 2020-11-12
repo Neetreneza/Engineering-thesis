@@ -32,11 +32,15 @@ public class Profil extends AppCompatActivity {
     LinearLayout umiejetnosciLayout, znajomiLayout;
     ImageView schowajZnajomych, schowajUmiejetnosci;
     Button pilkaL, pilkaM, pilkaH,  koszL, koszM, koszH, zapisz;
-    String identyfikatorUzytkownika, nazwaRT, emailRT, dataUrodzeniaRT, telefonRT, nazwiskoRT;
+    String  nazwaRT, emailRT, dataUrodzeniaRT, telefonRT, nazwiskoRT, identyfikatorUzytkownikaEmail;
     ImageView ustawienia;
-    int licz=1;
+    int licz=1, identyfikatorUzytkownika;
 
     ProgressDialog progressDialog;
+
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet resultSet = null;
 
     int z=0,u=0;
 
@@ -47,6 +51,7 @@ public class Profil extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
 
+        identyfikatorUzytkownikaEmail = Singleton.getInstance().getuzytkownikEmail();
         identyfikatorUzytkownika = Singleton.getInstance().getUzytkownikID();
 
         pilkaL = (Button) findViewById(R.id.nogaNiski);
@@ -103,6 +108,7 @@ public class Profil extends AppCompatActivity {
 
     private class Profilowanie extends AsyncTask<String,String,String>
     {
+        String nazwaU,dataU,emailU,ocenaU, telefonU,nazwiskoU;
 
         @Override
         protected void onPreExecute() {
@@ -115,24 +121,28 @@ public class Profil extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
+
             try {
 
-                Class.forName("com.mysql.jdbc.Driver");
-
-                Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.100:3306/aplikacja", "andro", "andro");
-
-                Statement statement = connection.createStatement();
+                connection = ConnectionManager.getConnection();
+                statement = connection.createStatement();
 
                 ResultSet resultSet = statement.executeQuery("SELECT imie, nazwisko, email, telefon, ocena, data_urodzenia FROM uzytkownik where email ='"+identyfikatorUzytkownika+"'");
 
                 while(resultSet.next())
                 {
-                    nazwaUzytkownika.setText(resultSet.getString(1));
-                    dataUrodzeniaUzytkownika.setText(resultSet.getString(6));
-                    emailUzytkownika.setText(resultSet.getString(3));
-                    ocenaUzytkownika.setText(resultSet.getString(5));
-                    telefon.setText(resultSet.getString(4));
-                    nazwiskoUzytkownika.setText(resultSet.getString(2));
+                    nazwaU = (resultSet.getString(1));
+                    dataU = (resultSet.getString(6));
+                    emailU = (resultSet.getString(3));
+                    ocenaU = (resultSet.getString(5));
+                    telefonU = (resultSet.getString(4));
+                    nazwiskoU = (resultSet.getString(2));
+                    nazwaUzytkownika.setText(nazwaU);
+                    dataUrodzeniaUzytkownika.setText(dataU);
+                    emailUzytkownika.setText(emailU);
+                    ocenaUzytkownika.setText(ocenaU);
+                    telefon.setText(telefonU);
+                    nazwiskoUzytkownika.setText(nazwiskoU);
 
                 }
 
@@ -154,9 +164,10 @@ public class Profil extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+
             progressDialog.hide();
 
-            ustawOcene();
+            //ustawOcene(); TODO DO PORPAWY
 
 
 
@@ -402,9 +413,8 @@ public class Profil extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             try {
 
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.100:3306/aplikacja", "andro", "andro");
-                Statement statement = connection.createStatement();
+                connection = ConnectionManager.getConnection();
+                statement = connection.createStatement();
 
                 String query = "update uzytkownik set email =?, telefon =?, data_urodzenia=?, imie=?, nazwisko=? where email =?";
 
@@ -414,10 +424,10 @@ public class Profil extends AppCompatActivity {
                 preparedStmt.setString(3, dataUrodzeniaRT);
                 preparedStmt.setString(4, nazwaRT);
                 preparedStmt.setString(5, nazwiskoRT);
-                preparedStmt.setString(6, Singleton.getInstance().getUzytkownikID());
+                preparedStmt.setString(6, Singleton.getInstance().getuzytkownikEmail());
                 preparedStmt.execute();
 
-                Singleton.getInstance().setUzytkownikID(emailRT);
+                Singleton.getInstance().setUzytkownikEmail(emailRT);
 
                 connection.close();
 

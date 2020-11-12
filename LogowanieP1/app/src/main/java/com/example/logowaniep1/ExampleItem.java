@@ -2,9 +2,10 @@ package com.example.logowaniep1;
 
 public class ExampleItem {
     private int imageResource,imageResource2;
-    private String text1,text2,start,koniec,headUser,miejsceE;
+    private String text1,text2,start,koniec,headUser,miejsceE, obiektId, opis;
+    int wydarzenieId;
 
-    public ExampleItem(int image , String txt1, String txt2, String startWe, String koniecWe, int image2, String headUserWe, String miejsce)
+    public ExampleItem(int image , String txt1, String txt2, String startWe, String koniecWe, int image2, String headUserWe, String miejsce, String obiektIdWe, int wydarzenieIdWe, String opisWe)
     {
         imageResource = image;
         text1 = txt1;
@@ -14,6 +15,9 @@ public class ExampleItem {
         imageResource2 = image2;
         headUser = headUserWe;
         miejsceE = miejsce;
+        obiektId = obiektIdWe;
+        wydarzenieId = wydarzenieIdWe;
+        opis = opisWe;
     }
 
     public int getImageResource()
@@ -54,6 +58,20 @@ public class ExampleItem {
     public int getImageResource2()
     {
         return imageResource2;
+    }
+
+    public String getObiektId()
+    {
+        return  obiektId;
+    }
+
+    public int getWydarzenieId(){
+        return  wydarzenieId;
+    }
+
+    public String getOpis()
+    {
+        return opis;
     }
 
     String getHeadUser()//kiedys moze nawet jakies argumenty

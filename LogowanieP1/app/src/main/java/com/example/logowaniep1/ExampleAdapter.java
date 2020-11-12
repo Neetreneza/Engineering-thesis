@@ -32,7 +32,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
     {
         public ImageView imageView, imageView2;
         public TextView textView1, textView2, start, koniec, miejsce;
-        public String headUser;
+        public String headUser, obiektId, opis;
 
 
         public ExampleViewHolder(View itemView,final onItemClickListener listenerSzczegoly)
@@ -105,7 +105,11 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         holder.start.setText(currentItem.getStart());
         holder.koniec.setText(currentItem.getKoniec());
         holder.headUser = currentItem.getHeadUser();
-        holder.miejsce.setText(currentItem.getMiejsceE());
+        String miejsce = currentItem.getMiejsceE();
+        String tempMiejsce = miejsce;
+        if(miejsce.length()>20)
+            tempMiejsce = miejsce.substring(0,18)+"...";
+        holder.miejsce.setText(tempMiejsce);
     }
 
     @Override

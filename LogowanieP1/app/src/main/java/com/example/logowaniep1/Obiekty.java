@@ -36,7 +36,12 @@ public class Obiekty extends AppCompatActivity {
     ProgressDialog progressDialog;
     Button filtrowanie, plus;
     LinearLayout filtrowanieLayout; // szczegolyObiektu;
+    Intent intent;
     int p=0;
+
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet resultSet = null;
 
 
 
@@ -53,6 +58,10 @@ public class Obiekty extends AppCompatActivity {
         //szczegolyObiektu = (LinearLayout) findViewById(R.id.szczegolyObiektuLayout);
 
         filtrowanieLayout.setVisibility(View.GONE);
+
+
+        if(getIntent()!=null)
+        intent = getIntent();
 
 
 
@@ -92,12 +101,8 @@ public class Obiekty extends AppCompatActivity {
 //        obiektyList.add(new ObiektyItem(R.drawable.gora, "39", "9-20", "Pn-Pt"));
 //        obiektyList.add(new ObiektyItem(R.drawable.gora, "129", "12-18", "Pn-Nd"));
 
-
-                Class.forName("com.mysql.jdbc.Driver");
-
-                Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.100:3306/aplikacja", "andro", "andro");
-
-                Statement statement = connection.createStatement();
+                connection = ConnectionManager.getConnection();
+                statement = connection.createStatement();
 
                 ResultSet resultSet = statement.executeQuery("select obiekt.*, obiekt_cennik.*, dyscyplina.* from obiekt,obiekt_cennik, dyscyplina where obiekt.obiekt_id = obiekt_cennik.obiekt_id and obiekt_cennik.dyscyplina_id = dyscyplina.dyscyplina_id;");
                 while (resultSet.next()) {
@@ -187,7 +192,16 @@ public class Obiekty extends AppCompatActivity {
             @Override
             public void onPlusClick(int position) {
                 String id = obiektyList.get(position).getOText0();
+                int idInt = Integer.parseInt(id);
                 Log.i("Klik",id);
+                if(intent!=null)
+                {
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("result", idInt);
+                    Log.i("Klik", String.valueOf(idInt));
+                    setResult(RESULT_OK, resultIntent);
+                    finish();
+                }
             }
 
             @Override
