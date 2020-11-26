@@ -7,16 +7,6 @@
     tools:context=".Obiekty"
     android:background="@drawable/tlo"
    >
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_navigation"
-        android:background="@color/cardview_dark_background"
-        app:itemIconTint="@color/eye_background"
-        app:itemTextColor="@color/eye_background"
-        android:id="@+id/bottomNavigationViewObiektu"
-        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewObiekty"
@@ -39,11 +29,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="55dp"
-        android:layout_marginBottom="72dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginBottom="5dp"
         android:background="@color/cardview_dark_background"
-        android:text="Dodaj"
-        android:textColor="@color/eye_background" />
+        android:textColor="@color/eye_background"
+        android:text="Dodaj" />
 
     <Button
         android:id="@+id/filtrowanieObiektyB"
@@ -51,11 +41,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="64dp"
-        android:layout_marginBottom="73dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="6dp"
         android:background="@color/cardview_dark_background"
-        android:text="Filtruj"
-        android:textColor="@color/eye_background" />
+        android:textColor="@color/eye_background"
+        android:text="Filtruj" />
 
     <LinearLayout
         android:id="@+id/filtrowanieLayout"
