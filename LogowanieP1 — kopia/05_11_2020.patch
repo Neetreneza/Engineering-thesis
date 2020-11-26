@@ -1,0 +1,1190 @@
+Index: LogowanieP1/app/src/main/res/layout/activity_obiekty.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- LogowanieP1/app/src/main/res/layout/activity_obiekty.xml	(revision 4b601129a588dc6b2d3bc31e34ccd84c0cfeb41a)
++++ LogowanieP1/app/src/main/res/layout/activity_obiekty.xml	(date 1603954579730)
+@@ -4,16 +4,19 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    tools:context=".Obiekty">
++    tools:context=".Obiekty"
++    android:background="@drawable/tlo"
++   >
+ 
+     <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/recyclerViewObiekty"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
++        android:layout_marginBottom="60dp"
++        android:background="@drawable/tlo"
+         android:padding="4dp"
+-        android:background="@android:color/darker_gray"
+         android:scrollbars="vertical"
+-        android:layout_marginBottom="100dp"
++
+ 
+         >
+ 
+@@ -26,8 +29,10 @@
+         android:layout_height="wrap_content"
+         android:layout_alignParentStart="true"
+         android:layout_alignParentBottom="true"
+-        android:layout_marginStart="50dp"
+-        android:layout_marginBottom="28dp"
++        android:layout_marginStart="51dp"
++        android:layout_marginBottom="5dp"
++        android:background="@color/cardview_dark_background"
++        android:textColor="@color/eye_background"
+         android:text="Dodaj" />
+ 
+     <Button
+@@ -36,8 +41,10 @@
+         android:layout_height="wrap_content"
+         android:layout_alignParentEnd="true"
+         android:layout_alignParentBottom="true"
+-        android:layout_marginEnd="51dp"
+-        android:layout_marginBottom="29dp"
++        android:layout_marginEnd="50dp"
++        android:layout_marginBottom="6dp"
++        android:background="@color/cardview_dark_background"
++        android:textColor="@color/eye_background"
+         android:text="Filtruj" />
+ 
+     <LinearLayout
+Index: LogowanieP1/app/src/main/java/com/example/logowaniep1/Profil.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- LogowanieP1/app/src/main/java/com/example/logowaniep1/Profil.java	(revision 4b601129a588dc6b2d3bc31e34ccd84c0cfeb41a)
++++ LogowanieP1/app/src/main/java/com/example/logowaniep1/Profil.java	(date 1604607611527)
+@@ -1,9 +1,10 @@
+ package com.example.logowaniep1;
+ 
+ import androidx.appcompat.app.AppCompatActivity;
+-import androidx.core.content.ContextCompat;
+ 
++import android.app.ProgressDialog;
+ import android.graphics.Color;
++import android.os.AsyncTask;
+ import android.os.Bundle;
+ import android.view.View;
+ import android.widget.Button;
+@@ -11,16 +12,31 @@
+ import android.widget.ImageView;
+ import android.widget.LinearLayout;
+ import android.widget.TextView;
++import android.widget.Toast;
++
++import java.sql.Connection;
++import java.sql.DriverManager;
++import java.sql.PreparedStatement;
++import java.sql.ResultSet;
++import java.sql.Statement;
+ 
+ import static android.view.View.GONE;
+ 
++//TODO sprawdzic przy edycji czy zmieniany email istnieje w bazie
++
+ public class Profil extends AppCompatActivity {
+ 
+-    TextView znajomiTV, umiejetnosciTV;
++    TextView znajomiTV, ocenaUzytkownika, umiejetnosciTV;
++    EditText nazwaUzytkownika, emailUzytkownika, dataUrodzeniaUzytkownika, telefon, nazwiskoUzytkownika;
+     TextView znajomiET, umiejetnosciET;
+     LinearLayout umiejetnosciLayout, znajomiLayout;
+     ImageView schowajZnajomych, schowajUmiejetnosci;
+-    Button pilkaL, pilkaM, pilkaH,  koszL, koszM, koszH;
++    Button pilkaL, pilkaM, pilkaH,  koszL, koszM, koszH, zapisz;
++    String identyfikatorUzytkownika, nazwaRT, emailRT, dataUrodzeniaRT, telefonRT, nazwiskoRT;
++    ImageView ustawienia;
++    int licz=1;
++
++    ProgressDialog progressDialog;
+ 
+     int z=0,u=0;
+ 
+@@ -29,6 +45,10 @@
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_profil);
+ 
++        progressDialog = new ProgressDialog(this);
++
++        identyfikatorUzytkownika = Singleton.getInstance().getUzytkownikID();
++
+         pilkaL = (Button) findViewById(R.id.nogaNiski);
+         pilkaM = (Button) findViewById(R.id.nogaSredni);
+         pilkaH = (Button) findViewById(R.id.nogaWysoki);
+@@ -37,6 +57,9 @@
+         koszM = (Button) findViewById(R.id.koszSredni);
+         koszH = (Button) findViewById(R.id.koszWysoki);
+ 
++        zapisz = (Button) findViewById(R.id.zapiszUstawieniaProfiluB) ;
++        zapisz.setVisibility(GONE);
++
+ 
+         znajomiET = (TextView) findViewById(R.id.znajomiProfilET);
+         umiejetnosciET = (TextView) findViewById(R.id.umiejetnosciProfilET);
+@@ -50,53 +73,239 @@
+         schowajUmiejetnosci = (ImageView) findViewById(R.id.umiejetnosciSchowajImg);
+         schowajZnajomych = (ImageView) findViewById(R.id.znajomiSchowajImg);
+ 
++        nazwaUzytkownika = (EditText) findViewById(R.id.nazwaProfilET);
++        emailUzytkownika = (EditText) findViewById(R.id.emailProfilET);
++        ocenaUzytkownika = (TextView) findViewById(R.id.ocenaProfilET);
++        dataUrodzeniaUzytkownika = (EditText) findViewById(R.id.dataUrodzeniaProfilET);
++        telefon = (EditText) findViewById(R.id.telefonET);
++        nazwiskoUzytkownika = (EditText) findViewById(R.id.nazwiskoProfilET);
++
++        ustawienia = (ImageView) findViewById(R.id.ustawieniaProfil);
++
++        nazwaUzytkownika.setEnabled(false);
++        emailUzytkownika.setEnabled(false);
++        dataUrodzeniaUzytkownika.setEnabled(false);
++        telefon.setEnabled(false);
++        nazwiskoUzytkownika.setEnabled(false);
++
+         znajomiLayout.setVisibility(GONE);
+         umiejetnosciLayout.setVisibility(GONE);
+         schowajZnajomych.setVisibility(GONE);
+         schowajUmiejetnosci.setVisibility(GONE);
+ 
+-        znajomiTV.setOnClickListener(new View.OnClickListener() {
+-            @Override
+-            public void onClick(View v) {
+-                otworzZnajomi();
+-            }
+-        });
++
++
++        Profilowanie profilowanie = new Profilowanie();
++        profilowanie.execute();
++
++
++    }
++
++    private class Profilowanie extends AsyncTask<String,String,String>
++    {
++
++        @Override
++        protected void onPreExecute() {
++            super.onPreExecute();
++
++            progressDialog.setMessage("Przetwarzanie...");
++            progressDialog.show();
++
++        }
++        @Override
++        protected String doInBackground(String... strings) {
++
++            try {
++
++                Class.forName("com.mysql.jdbc.Driver");
++
++                Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.100:3306/aplikacja", "andro", "andro");
++
++                Statement statement = connection.createStatement();
++
++                ResultSet resultSet = statement.executeQuery("SELECT imie, nazwisko, email, telefon, ocena, data_urodzenia FROM uzytkownik where email ='"+identyfikatorUzytkownika+"'");
++
++                while(resultSet.next())
++                {
++                    nazwaUzytkownika.setText(resultSet.getString(1));
++                    dataUrodzeniaUzytkownika.setText(resultSet.getString(6));
++                    emailUzytkownika.setText(resultSet.getString(3));
++                    ocenaUzytkownika.setText(resultSet.getString(5));
++                    telefon.setText(resultSet.getString(4));
++                    nazwiskoUzytkownika.setText(resultSet.getString(2));
++
++                }
++
++
++
++
++
++            }
++            catch (Exception e){
++                System.err.println("Błąd: ");
++                System.err.println(e.getMessage());
++            }
++
++
++
++            return null;
++        }
++
++        @Override
++        protected void onPostExecute(String s) {
++            super.onPostExecute(s);
++            progressDialog.hide();
++
++            ustawOcene();
++
++
++
++
++            znajomiTV.setOnClickListener(new View.OnClickListener() {
++                @Override
++                public void onClick(View v) {
++                    otworzZnajomi();
++                }
++            });
+ 
+-        schowajZnajomych.setOnClickListener(new View.OnClickListener() {
+-            @Override
+-            public void onClick(View v) {
+-                otworzZnajomi();
+-            }
+-        });
++            schowajZnajomych.setOnClickListener(new View.OnClickListener() {
++                @Override
++                public void onClick(View v) {
++                    otworzZnajomi();
++                }
++            });
+ 
+-        znajomiET.setOnClickListener(new View.OnClickListener() {
+-            @Override
+-            public void onClick(View v) {
+-                otworzZnajomi();
+-            }
+-        });
++            znajomiET.setOnClickListener(new View.OnClickListener() {
++                @Override
++                public void onClick(View v) {
++                    otworzZnajomi();
++                }
++            });
+ 
+-        umiejetnosciTV.setOnClickListener(new View.OnClickListener() {
+-            @Override
+-            public void onClick(View v) {
+-                otworzUmiejetnosci();
+-            }
+-        });
++            umiejetnosciTV.setOnClickListener(new View.OnClickListener() {
++                @Override
++                public void onClick(View v) {
++                    otworzUmiejetnosci();
++                }
++            });
+ 
+-        umiejetnosciET.setOnClickListener(new View.OnClickListener() {
+-            @Override
+-            public void onClick(View v) {
+-                otworzUmiejetnosci();
+-            }
+-        });
++            umiejetnosciET.setOnClickListener(new View.OnClickListener() {
++                @Override
++                public void onClick(View v) {
++                    otworzUmiejetnosci();
++                }
++            });
+ 
+-        schowajUmiejetnosci.setOnClickListener(new View.OnClickListener() {
+-            @Override
+-            public void onClick(View v) {
+-                otworzUmiejetnosci();
+-            }
+-        });
++            schowajUmiejetnosci.setOnClickListener(new View.OnClickListener() {
++                @Override
++                public void onClick(View v) {
++                    otworzUmiejetnosci();
++                }
++            });
+ 
++            ustawienia.setOnClickListener(new View.OnClickListener() {
++                @Override
++                public void onClick(View v) {
++                    otworzUstawienia();
++                }
++            });
++
++            zapisz.setOnClickListener(new View.OnClickListener() {
++                @Override
++                public void onClick(View v) {
++                    nazwaRT = nazwaUzytkownika.getText().toString();
++                    nazwiskoRT = nazwiskoUzytkownika.getText().toString();
++                    emailRT = emailUzytkownika.getText().toString();
++                    telefonRT = telefon.getText().toString();
++                    dataUrodzeniaRT = dataUrodzeniaUzytkownika.getText().toString();
++                    String blad="";
++
++                    if(nazwaRT.trim().equals("") ||nazwiskoRT.trim().equals(""))
++                        blad = "Proszę uzupełnić wszystke pola \n";
++
++
++                    //Sprawdzanie hasla
++//            String hasloPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=\\S+$).{8,30}$";
++//            if(hasloRT.matches(haslo2RT)&& hasloRT.matches(hasloPattern));
++//            else
++//                blad+="Hasło musi zawierać: \n conajmniej 8 znaków, \n jedną małą i wielką literę, \n cyfrę i znak specjalny (@#$&*) itp.\n";
++
++
++                    String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
++                    if(emailRT.matches(emailPattern));
++                    else
++                        blad+=emailRT+"Proszę podać poprawny e-mail\n";
++
++                    String dataUrodzeniaPattern = "^\\d{4}-\\d{2}-\\d{2}$";
++                    if(dataUrodzeniaRT.matches(dataUrodzeniaPattern));
++                    else
++                        blad+="Datę należy podać w formacie YYYY-MM-DD\n";
++
++                    String telefonPattern = "^\\+48\\d{9}$";
++                    if(telefonRT.matches(telefonPattern));
++                    else
++                        blad+=telefonRT+"Telefon należy podać w formacie +48 CCCCCCCCC (9 cyfr)\n";
++
++                    if(blad.equals(""))
++                    {
++                        ZamienWBazie zamienWBazie = new ZamienWBazie();
++                        zamienWBazie.execute();
++                    }
++                    else
++                        Toast.makeText(getBaseContext(),blad, Toast.LENGTH_LONG).show();
++
++
++
++                }
++            });
++
++        }
++
++        private void ustawOcene() {
++            int ocena = Integer.valueOf(ocenaUzytkownika.getText().toString());
++            if(ocena > 0)
++            {
++                ocenaUzytkownika.setText("+"+ocena);
++                ocenaUzytkownika.setTextColor(Color.GREEN);
++            }
++            else
++            {
++                if(ocena < 0 ) ocenaUzytkownika.setText("-"+ocena);
++                ocenaUzytkownika.setTextColor(Color.RED);
++            }
++
++
++        }
++    }
++
++    private void otworzUstawienia()
++    {
++        if(licz==1)
++        {
++            nazwaUzytkownika.setEnabled(true);
++            emailUzytkownika.setEnabled(true);
++            dataUrodzeniaUzytkownika.setEnabled(true);
++            telefon.setEnabled(true);
++            nazwiskoUzytkownika.setEnabled(true);
++            zapisz.setVisibility(View.VISIBLE);
++            licz = 0;
++        }
++        else
++        {
++            nazwaUzytkownika.setEnabled(false);
++            emailUzytkownika.setEnabled(false);
++            dataUrodzeniaUzytkownika.setEnabled(false);
++            telefon.setEnabled(false);
++            nazwiskoUzytkownika.setEnabled(false);
++            zapisz.setVisibility(GONE);
++            licz = 1;
++        }
++
++
++
++
++
++
+     }
+ 
+ 
+@@ -137,8 +346,7 @@
+ //        Button button = (Button) findViewById(view.getId());
+ //        button.setTextColor(Color.RED);
+ 
+-        switch (view.getId())
+-        {
++        switch (view.getId()) {
+             case R.id.nogaNiski:
+                 pilkaL.setTextColor(Color.RED);
+                 pilkaH.setTextColor(Color.BLACK);
+@@ -175,6 +383,56 @@
+                 koszL.setTextColor(Color.BLACK);
+                 break;
+ 
++        }
++    }
++
++    private class ZamienWBazie extends AsyncTask<String,String,String>
++    {
++        @Override
++        protected void onPreExecute() {
++            super.onPreExecute();
++
++            progressDialog.setMessage("Przetwarzanie...");
++            progressDialog.show();
++
++
++        }
++
++        @Override
++        protected String doInBackground(String... strings) {
++            try {
++
++                Class.forName("com.mysql.jdbc.Driver");
++                Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.100:3306/aplikacja", "andro", "andro");
++                Statement statement = connection.createStatement();
++
++                String query = "update uzytkownik set email =?, telefon =?, data_urodzenia=?, imie=?, nazwisko=? where email =?";
++
++                PreparedStatement preparedStmt = connection.prepareStatement(query);
++                preparedStmt.setString(1, emailRT);
++                preparedStmt.setString(2, telefonRT);
++                preparedStmt.setString(3, dataUrodzeniaRT);
++                preparedStmt.setString(4, nazwaRT);
++                preparedStmt.setString(5, nazwiskoRT);
++                preparedStmt.setString(6, Singleton.getInstance().getUzytkownikID());
++                preparedStmt.execute();
++
++                Singleton.getInstance().setUzytkownikID(emailRT);
++
++                connection.close();
++
++            }
++            catch (Exception e){
++                System.err.println("Błąd: ");
++                System.err.println(e.getMessage());
++            }
++            return null;
++        }
++
++        @Override
++        protected void onPostExecute(String s) {
++            super.onPostExecute(s);
++            progressDialog.hide();
+         }
+     }
+ }
+Index: LogowanieP1/app/src/main/java/com/example/logowaniep1/ExampleItem.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- LogowanieP1/app/src/main/java/com/example/logowaniep1/ExampleItem.java	(revision 4b601129a588dc6b2d3bc31e34ccd84c0cfeb41a)
++++ LogowanieP1/app/src/main/java/com/example/logowaniep1/ExampleItem.java	(date 1604609113320)
+@@ -2,9 +2,9 @@
+ 
+ public class ExampleItem {
+     private int imageResource,imageResource2;
+-    private String text1,text2,start,koniec,headUser;
++    private String text1,text2,start,koniec,headUser,miejsceE;
+ 
+-    public ExampleItem(int image , String txt1, String txt2, String startWe, String koniecWe, int image2, String headUserWe)
++    public ExampleItem(int image , String txt1, String txt2, String startWe, String koniecWe, int image2, String headUserWe, String miejsce)
+     {
+         imageResource = image;
+         text1 = txt1;
+@@ -13,6 +13,7 @@
+         koniec = koniecWe;
+         imageResource2 = image2;
+         headUser = headUserWe;
++        miejsceE = miejsce;
+     }
+ 
+     public int getImageResource()
+@@ -25,6 +26,10 @@
+     {
+         text1 = t;
+     }
++    public String getMiejsceE()
++    {
++        return miejsceE;
++    }
+ 
+     public String getText1()
+     {
+Index: LogowanieP1/app/src/main/java/com/example/logowaniep1/Singleton.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- LogowanieP1/app/src/main/java/com/example/logowaniep1/Singleton.java	(date 1604405405814)
++++ LogowanieP1/app/src/main/java/com/example/logowaniep1/Singleton.java	(date 1604405405814)
+@@ -0,0 +1,21 @@
++package com.example.logowaniep1;
++
++public class Singleton {
++    private static final Singleton INSTANCE = new Singleton();
++    private String uzytkownikID; // email tu siedzi
++
++    private Singleton() {
++    }
++
++    public static Singleton getInstance() {
++        return INSTANCE;
++    }
++
++    public String getUzytkownikID() {
++        return uzytkownikID;
++    }
++
++    public void setUzytkownikID(String uzytkownikID) {
++        this.uzytkownikID = uzytkownikID;
++    }
++}
+\ No newline at end of file
+Index: LogowanieP1/app/src/main/java/com/example/logowaniep1/Wydarzenia.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- LogowanieP1/app/src/main/java/com/example/logowaniep1/Wydarzenia.java	(revision 4b601129a588dc6b2d3bc31e34ccd84c0cfeb41a)
++++ LogowanieP1/app/src/main/java/com/example/logowaniep1/Wydarzenia.java	(date 1604610247855)
+@@ -16,12 +16,19 @@
+ import androidx.recyclerview.widget.LinearLayoutManager;
+ import androidx.recyclerview.widget.RecyclerView;
+ 
++import android.app.ProgressDialog;
+ import android.content.Intent;
++import android.os.AsyncTask;
+ import android.os.Bundle;
+ import android.os.Parcelable;
++import android.util.Log;
+ import android.view.View;
+ import android.widget.Button;
+ 
++import java.sql.Connection;
++import java.sql.DriverManager;
++import java.sql.ResultSet;
++import java.sql.Statement;
+ import java.util.ArrayList;
+ 
+ public class Wydarzenia extends AppCompatActivity {
+@@ -31,6 +38,7 @@
+     private RecyclerView recyclerView;
+     private ExampleAdapter adapter;
+     private RecyclerView.LayoutManager layoutManager;
++    ProgressDialog progressDialog;
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+@@ -40,12 +48,13 @@
+         dodajWydarzenie = (Button) findViewById(R.id.dodajWydB);
+         TEST = (Button) findViewById(R.id.TestButton1);
+ 
++        progressDialog = new ProgressDialog(this);
++        exampleList = new ArrayList<>();
++
+         TEST.setText("Prosze dzialac");
+ 
+-        createExampleList();
+-        buildRecyclerView();
+-
+-
++        createExampleList CEL = new createExampleList();
++        CEL.execute();
+ 
+         dodajWydarzenie.setOnClickListener(new View.OnClickListener() {
+             @Override
+@@ -56,21 +65,79 @@
+ 
+     }
+ 
+-    public void createExampleList()
++    public class createExampleList  extends AsyncTask<String,String,String>
+     {
+-        exampleList =  new ArrayList<>();
+-        exampleList.add(new ExampleItem(R.drawable.running,"Bieganie 10km","Darmowe","12.11.2020","12:00 - 13:00",R.drawable.delete,"Andrzej"));
+-        exampleList.add(new ExampleItem(R.drawable.bike,"Rower 18,5km","30zł","15.11.2020","8:00 - 9:45",R.drawable.delete,"Duda"));
+-        exampleList.add(new ExampleItem(R.drawable.bed,"Drzemka","Darmowe","18.07.2021","10:00 - 10:30",R.drawable.delete,"PawelG"));
++//        exampleList =  new ArrayList<>();
++//        exampleList.add(new ExampleItem(R.drawable.running,"Bieganie 10km","Darmowe","12.11.2020","12:00 - 13:00",R.drawable.delete,"Andrzej"));
++//        exampleList.add(new ExampleItem(R.drawable.bike,"Rower 18,5km","30zł","15.11.2020","8:00 - 9:45",R.drawable.delete,"Duda"));
++//        exampleList.add(new ExampleItem(R.drawable.bed,"Drzemka","Darmowe","18.07.2021","10:00 - 10:30",R.drawable.delete,"PawelG"));
++//
++//        exampleList.add(new ExampleItem(R.drawable.running,"Bieganie 10km","Darmowe","12.11.2020","12:00 - 13:00",R.drawable.delete,"Andrzej"));
++//        exampleList.add(new ExampleItem(R.drawable.bike,"Rower 18,5km","30zł","15.11.2020","8:00 - 9:45",R.drawable.delete,"Duda"));
++//        exampleList.add(new ExampleItem(R.drawable.bed,"Drzemka","Darmowe","18.07.2021","10:00 - 10:30",R.drawable.delete,"PawelG"));
++//
++//        exampleList.add(new ExampleItem(R.drawable.running,"Bieganie 10km","Darmowe","12.11.2020","12:00 - 13:00",R.drawable.delete,"Andrzej"));
++//        exampleList.add(new ExampleItem(R.drawable.bike,"Rower 18,5km","30zł","15.11.2020","8:00 - 9:45",R.drawable.delete,"Duda"));
++//       exampleList.add(new ExampleItem(R.drawable.bed,"Drzemka","Darmowe","18.07.2021","10:00 - 10:30",R.drawable.delete,"PawelG"));
++
++        String data, czasRozpoczecia, czasZakonczenia, dyscyplinaNazwa, cena, zakladajacy, miasto, ulica, nrLokalu, miejsce;
++
++
++        @Override
++        protected void onPreExecute() {
++            super.onPreExecute();
++            progressDialog.setMessage("Przetwarzanie...");
++            progressDialog.show();
++        }
++
++        @Override
++        protected String doInBackground(String... strings) {
++
++            try {
++
++            Class.forName("com.mysql.jdbc.Driver");
++
++            Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.100:3306/aplikacja", "andro", "andro");
++
++            Statement statement = connection.createStatement();
++
++            ResultSet resultSet = statement.executeQuery("select wydarzenie.data, wydarzenie.organizator_id, wydarzenie.czas_rozpoczecia, wydarzenie.czas_zakonczenia, wydarzenie.dyscyplina_id, wydarzenie.obiekt_id, obiekt_cennik.cena, dyscyplina.nazwa, obiekt.nazwa, obiekt.obiekt_id, obiekt.miejscowosc, obiekt.ulica, obiekt.numer_lokalu from wydarzenie, obiekt_cennik, dyscyplina, obiekt where obiekt.obiekt_id = wydarzenie.obiekt_id and obiekt_cennik.obiekt_id = obiekt.obiekt_id and wydarzenie.obiekt_id = obiekt_cennik.obiekt_id and wydarzenie.dyscyplina_id = obiekt_cennik.dyscyplina_id and dyscyplina.dyscyplina_id = wydarzenie.dyscyplina_id");
++
++            while (resultSet.next()) {
++// DODAC FILTROWANIE WYNIKOW
++                Log.i("while","Czytam z wynikow");
++                data = resultSet.getString(1);
++                czasRozpoczecia = resultSet.getString(3);
++                czasZakonczenia = resultSet.getString(4);
++                dyscyplinaNazwa = resultSet.getString(8);
++                cena = resultSet.getString(7);
++                zakladajacy = resultSet.getString(2);
++                miasto = resultSet.getString(11);
++                ulica = resultSet.getString(12);
++                nrLokalu = resultSet.getString(13);
++                miejsce = miasto+", "+ulica+" "+nrLokalu;
++                if(miejsce.length()>20)
++                miejsce = miasto;
+ 
+-        exampleList.add(new ExampleItem(R.drawable.running,"Bieganie 10km","Darmowe","12.11.2020","12:00 - 13:00",R.drawable.delete,"Andrzej"));
+-        exampleList.add(new ExampleItem(R.drawable.bike,"Rower 18,5km","30zł","15.11.2020","8:00 - 9:45",R.drawable.delete,"Duda"));
+-        exampleList.add(new ExampleItem(R.drawable.bed,"Drzemka","Darmowe","18.07.2021","10:00 - 10:30",R.drawable.delete,"PawelG"));
++                exampleList.add(new ExampleItem(R.drawable.bike, dyscyplinaNazwa,  cena+"zł", data, czasRozpoczecia.substring(0, czasRozpoczecia.length() - 3)+" - "+czasZakonczenia.substring(0, czasRozpoczecia.length() - 3), R.drawable.delete, zakladajacy,miejsce));
+ 
+-        exampleList.add(new ExampleItem(R.drawable.running,"Bieganie 10km","Darmowe","12.11.2020","12:00 - 13:00",R.drawable.delete,"Andrzej"));
+-        exampleList.add(new ExampleItem(R.drawable.bike,"Rower 18,5km","30zł","15.11.2020","8:00 - 9:45",R.drawable.delete,"Duda"));
+-        exampleList.add(new ExampleItem(R.drawable.bed,"Drzemka","Darmowe","18.07.2021","10:00 - 10:30",R.drawable.delete,"PawelG"));
+ 
++            }
++            connection.close();
++        } catch (Exception e) {
++        System.err.println("Błąd: ");
++        System.err.println(e.getMessage());
++    }
++
++            return null;
++        }
++
++        @Override
++        protected void onPostExecute(String s) {
++            super.onPostExecute(s);
++            progressDialog.hide();
++            buildRecyclerView();
++        }
+     }
+ 
+     public void buildRecyclerView()
+@@ -156,13 +223,14 @@
+               String startNowe = data.getStringExtra("start");
+               String koniecNowe = data.getStringExtra("koniec");
+               String headUser = data.getStringExtra("headUser");
++              String miejsce = data.getStringExtra("miejsce");
+               int zdj=0;
+ 
+               if(nazwaNowe.contains("Bieganie")) zdj = R.drawable.running; //totalnie glupie, ale narazie przejdzie
+               else if(nazwaNowe.contains("Rower")) zdj = R.drawable.bike; // zasada dzialania znana
+               else zdj = R.drawable.domyslne;
+ 
+-              exampleList.add(new ExampleItem(zdj,nazwaNowe,cenaNowe,startNowe,koniecNowe,R.drawable.delete,headUser));
++              exampleList.add(new ExampleItem(zdj,nazwaNowe,cenaNowe,startNowe,koniecNowe,R.drawable.delete,headUser, miejsce));
+               adapter.notifyItemInserted(exampleList.size());// w argumencie podajemy pozycje dodanego elementu
+ 
+             }
+Index: LogowanieP1/app/src/main/java/com/example/logowaniep1/SzczegolyWydarzenia.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- LogowanieP1/app/src/main/java/com/example/logowaniep1/SzczegolyWydarzenia.java	(revision 4b601129a588dc6b2d3bc31e34ccd84c0cfeb41a)
++++ LogowanieP1/app/src/main/java/com/example/logowaniep1/SzczegolyWydarzenia.java	(date 1604600545435)
+@@ -36,5 +36,7 @@
+ 
+ 
+ 
++
++
+     }
+ }
+Index: LogowanieP1/app/src/main/java/com/example/logowaniep1/Logowanie.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- LogowanieP1/app/src/main/java/com/example/logowaniep1/Logowanie.java	(revision 4b601129a588dc6b2d3bc31e34ccd84c0cfeb41a)
++++ LogowanieP1/app/src/main/java/com/example/logowaniep1/Logowanie.java	(date 1604512625964)
+@@ -124,7 +124,7 @@
+ 
+         @Override
+         protected void onPreExecute() {
+-
++            super.onPreExecute();
+ //            if (!isFinishing() && progressDialog!= null) {
+ //                progressDialog = ProgressDialog.show(Logowanie.this, "Please Wait",null, true, true);
+ //            }
+@@ -134,7 +134,7 @@
+             progressDialog.show();
+ 
+ 
+-            super.onPreExecute();
++
+         }
+ 
+         @Override
+@@ -165,6 +165,10 @@
+                             isSuccess = true;
+                             Log.i("email", "moj mail " + emailstr + " :: " + resultSet.getString(1)  +" || moj haslo: " + passstr + " :: " + resultSet.getString(2));
+                            z = "Logowanie udane";
++
++                           Singleton.getInstance().setUzytkownikID(resultSet.getString(1));
++
++
+                            wyjdz = true;
+                         }
+                         else
+@@ -187,9 +191,15 @@
+ 
+         @Override
+         protected void onPostExecute(String s) {
+-            Toast.makeText(getBaseContext(),""+z, Toast.LENGTH_LONG).show();
+-
++            super.onPostExecute(s);
+             progressDialog.hide();
++
++
++            Toast.makeText(getBaseContext(),""+z, Toast.LENGTH_LONG).show();
++//            if (progressDialog != null && progressDialog.isShowing()) {
++//                progressDialog.dismiss();
++//                progressDialog = null;
++//            }
+             if(isSuccess) {
+ 
+             Log.i("Baza","Wynik to "+z);
+@@ -200,12 +210,10 @@
+                 setResult(RESULT_OK, resultIntent);
+                 finish();
+ 
+-                if (progressDialog != null && progressDialog.isShowing()) {
+-                    progressDialog.dismiss();
+-                    progressDialog = null;
++
+                 }
+ 
+-            }
++
+         }
+     }
+ 
+Index: LogowanieP1/app/src/main/res/layout/activity_profil.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- LogowanieP1/app/src/main/res/layout/activity_profil.xml	(revision 4b601129a588dc6b2d3bc31e34ccd84c0cfeb41a)
++++ LogowanieP1/app/src/main/res/layout/activity_profil.xml	(date 1604509198766)
+@@ -53,7 +53,7 @@
+                 app:srcCompat="@drawable/email" />
+ 
+             <ImageView
+-                android:id="@+id/imageView8"
++                android:id="@+id/ustawieniaProfil"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+@@ -77,23 +77,38 @@
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+-                android:orientation="horizontal">
++                android:orientation="vertical"
++                android:gravity="center_horizontal"
++                >
++
++                <LinearLayout
++                    android:layout_width="match_parent"
++                    android:layout_height="match_parent"
++                    android:layout_weight="1"
++                    android:orientation="horizontal">
+ 
+-                <TextView
+-                    android:id="@+id/ProfilTV1"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="Nazwa" />
++                    <EditText
++                        android:id="@+id/nazwaProfilET"
++                        android:layout_width="wrap_content"
++                        android:layout_height="wrap_content"
++                        android:layout_weight="1"
++                        android:editable="false"
++                        android:ems="10"
++                        android:inputType="textPersonName"
++                        android:text="Name"
++                        android:textAlignment="viewEnd" />
+ 
+-                <TextView
+-                    android:id="@+id/nazwaProfilET"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:ems="10"
+-                    android:inputType="textPersonName"
+-                    android:text="Name" />
++                    <EditText
++                        android:id="@+id/nazwiskoProfilET"
++                        android:layout_width="wrap_content"
++                        android:layout_height="wrap_content"
++                        android:layout_weight="1"
++                        android:editable="false"
++                        android:ems="10"
++                        android:inputType="textPersonName"
++                        android:text="Name"
++                        android:textAlignment="viewStart" />
++                </LinearLayout>
+ 
+             </LinearLayout>
+ 
+@@ -101,37 +116,49 @@
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+-                android:orientation="horizontal">
++                android:orientation="vertical">
+ 
+                 <TextView
+                     android:id="@+id/ProfilTV3"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+-                    android:text="E-mail" />
++                    android:text="E-mail"
++                    android:textColor="@color/colorPrimary"
++                    android:textSize="12sp"
++                    />
+ 
+-                <TextView
++                <EditText
+                     android:id="@+id/emailProfilET"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                     android:ems="10"
+                     android:inputType="textPersonName"
+-                    android:text="email" />
++                    android:text="email"
++                    android:textSize="18sp"
++                    android:layout_marginBottom="10dp"
++                    android:editable="false"
++                    />
++
+             </LinearLayout>
+ 
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+-                android:orientation="horizontal">
++                android:orientation="vertical">
+ 
+                 <TextView
+                     android:id="@+id/ProfilTV4"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+-                    android:text="Ocena" />
++                    android:text="Ocena"
++                    android:textColor="@color/colorPrimary"
++                    android:textSize="12sp"
++                    />
++
+ 
+                 <TextView
+                     android:id="@+id/ocenaProfilET"
+@@ -140,60 +167,85 @@
+                     android:layout_weight="1"
+                     android:ems="10"
+                     android:inputType="textPersonName"
+-                    android:text="0" />
++                    android:text="0"
++                    android:textSize="18sp"
++                    android:layout_marginBottom="10dp"
++                    />
++
+             </LinearLayout>
+ 
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+-                android:orientation="horizontal">
++                android:orientation="vertical">
+ 
+                 <TextView
+                     android:id="@+id/ProfilT5"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+-                    android:text="Stworzone wydarzenia" />
++                    android:text="Data Urodzenia"
++                    android:textColor="@color/colorPrimary"
++                    android:textSize="12sp"
++                    />
+ 
+-                <TextView
+-                    android:id="@+id/SWydarzeniaProfilET"
++                <EditText
++                    android:id="@+id/dataUrodzeniaProfilET"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                     android:ems="10"
+                     android:inputType="textPersonName"
+-                    android:text="1" />
++                    android:text="1"
++                    android:textSize="18sp"
++                    android:layout_marginBottom="10dp"
++                    android:editable="false"
++                    />
+             </LinearLayout>
+ 
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+-                android:orientation="horizontal">
++                android:orientation="vertical">
+ 
+                 <TextView
+                     android:id="@+id/ProfilTV6"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+-                    android:text="Zapisanych wydarzeń" />
++                    android:text="Telefon"
++                    android:textColor="@color/colorPrimary"
++                    android:textSize="12sp" />
+ 
+-                <TextView
+-                    android:id="@+id/ZWydarzeniaProfilET"
++                <EditText
++                    android:id="@+id/telefonET"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                     android:ems="10"
+                     android:inputType="textPersonName"
+-                    android:text="3" />
++                    android:text="3"
++                    android:textSize="18sp"
++                    android:layout_marginBottom="10dp"
++                    />
++
++                <Button
++                    android:id="@+id/zapiszUstawieniaProfiluB"
++                    android:layout_width="match_parent"
++                    android:layout_height="wrap_content"
++                    android:layout_weight="1"
++                    android:text="Zapisz"
++                    android:visibility="gone"
++                    tools:visibility="gone" />
+             </LinearLayout>
+ 
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+-                android:orientation="horizontal">
++                android:orientation="vertical">
+ 
+                 <TextView
+                     android:id="@+id/ProfilTV7"
+@@ -234,6 +286,8 @@
+                     android:ems="10"
+                     android:inputType="textPersonName"
+                     android:text="Brak" />
++
++
+             </LinearLayout>
+ 
+             <LinearLayout
+Index: LogowanieP1/app/src/main/java/com/example/logowaniep1/ExampleAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- LogowanieP1/app/src/main/java/com/example/logowaniep1/ExampleAdapter.java	(revision 4b601129a588dc6b2d3bc31e34ccd84c0cfeb41a)
++++ LogowanieP1/app/src/main/java/com/example/logowaniep1/ExampleAdapter.java	(date 1604609113303)
+@@ -31,7 +31,7 @@
+     public static class ExampleViewHolder extends  RecyclerView.ViewHolder
+     {
+         public ImageView imageView, imageView2;
+-        public TextView textView1, textView2, start, koniec;
++        public TextView textView1, textView2, start, koniec, miejsce;
+         public String headUser;
+ 
+ 
+@@ -44,6 +44,7 @@
+             imageView2 = itemView.findViewById(R.id.imageView2); //Usuwajka
+             start =  itemView.findViewById(R.id.startTextView);
+             koniec = itemView.findViewById(R.id.koniecTextView);
++            miejsce = itemView.findViewById(R.id.miejsceTV);
+ 
+             itemView.setOnClickListener(new View.OnClickListener() {
+                 @Override
+@@ -104,6 +105,7 @@
+         holder.start.setText(currentItem.getStart());
+         holder.koniec.setText(currentItem.getKoniec());
+         holder.headUser = currentItem.getHeadUser();
++        holder.miejsce.setText(currentItem.getMiejsceE());
+     }
+ 
+     @Override
+Index: LogowanieP1/app/src/main/java/com/example/logowaniep1/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- LogowanieP1/app/src/main/java/com/example/logowaniep1/MainActivity.java	(revision 4b601129a588dc6b2d3bc31e34ccd84c0cfeb41a)
++++ LogowanieP1/app/src/main/java/com/example/logowaniep1/MainActivity.java	(date 1604405736758)
+@@ -16,7 +16,7 @@
+ 
+     Button logowanie,wydarzenia,profil,obiekty,profilW, rejestracja, dodajObiekt;
+     boolean zalogowany=false;
+-    TextView tresc;
++    TextView tresc,test;
+ 
+     String[] dane;
+     String emailBaza, hasloBaza;
+@@ -34,6 +34,7 @@
+       rejestracja = (Button) findViewById(R.id.przejdzDoRejestracjiB);
+       tresc = (TextView) findViewById(R.id.trescZalogwanych);
+       dodajObiekt = (Button) findViewById(R.id.przejdzDoDodawanieObiektu);
++      test = (TextView) findViewById(R.id.textView);
+ 
+ 
+ 
+@@ -143,6 +144,7 @@
+         {
+             tresc.setVisibility(View.INVISIBLE);
+             logowanie.setText("Logowanie");
++            Singleton.getInstance().setUzytkownikID(null);
+         }
+     }
+ 
+@@ -181,6 +183,7 @@
+                 {
+                     tresc.setVisibility(View.VISIBLE);
+                     logowanie.setText("Wyloguj");
++                    test.setText(Singleton.getInstance().getUzytkownikID());
+                 }
+                 else
+                 {
+@@ -194,3 +197,5 @@
+         }
+     }
+ }
++
++
+Index: LogowanieP1/app/src/main/res/layout/obiekkt_wydarzenia.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- LogowanieP1/app/src/main/res/layout/obiekkt_wydarzenia.xml	(revision 4b601129a588dc6b2d3bc31e34ccd84c0cfeb41a)
++++ LogowanieP1/app/src/main/res/layout/obiekkt_wydarzenia.xml	(date 1604610391749)
+@@ -50,8 +50,8 @@
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_below="@id/textView1"
+-            android:layout_marginStart="148dp"
+-            android:layout_marginTop="-22dp"
++            android:layout_marginStart="146dp"
++            android:layout_marginTop="-9dp"
+             android:layout_toEndOf="@id/imageView"
+             android:text="Start: 12:00"
+             android:textColor="@android:color/holo_blue_dark"
+@@ -63,8 +63,8 @@
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_below="@id/textView1"
+-            android:layout_marginStart="149dp"
+-            android:layout_marginTop="2dp"
++            android:layout_marginStart="146dp"
++            android:layout_marginTop="11dp"
+             android:layout_toEndOf="@id/imageView"
+             android:text="Koniec: 13:00"
+             android:textColor="@android:color/holo_blue_dark"
+@@ -76,12 +76,26 @@
+             android:layout_width="50dp"
+             android:layout_height="50dp"
+             android:layout_below="@id/textView1"
+-            android:layout_marginStart="238dp"
+-            android:layout_marginTop="-28dp"
++            android:layout_marginStart="287dp"
++            android:layout_marginTop="-29dp"
+             android:layout_toEndOf="@id/imageView"
+             android:textColor="@android:color/holo_blue_dark"
+             android:textSize="15sp"
+             android:textStyle="bold" />
++
++        <TextView
++            android:id="@+id/miejsceTV"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_alignParentTop="true"
++            android:layout_alignParentEnd="true"
++            android:layout_marginTop="1dp"
++            android:layout_marginStart="146dp"
++            android:layout_toEndOf="@id/imageView"
++            android:text="TextView"
++            android:textColor="@android:color/holo_blue_dark"
++            android:textSize="15sp"
++            android:textStyle="bold" />
+ 
+ 
+     </RelativeLayout>
+Index: LogowanieP1/app/src/main/res/layout/activity_logowanie.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- LogowanieP1/app/src/main/res/layout/activity_logowanie.xml	(revision 4b601129a588dc6b2d3bc31e34ccd84c0cfeb41a)
++++ LogowanieP1/app/src/main/res/layout/activity_logowanie.xml	(date 1603954579747)
+@@ -46,10 +46,11 @@
+         android:id="@+id/logowanieB"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:background="@color/cardview_dark_background"
+         android:paddingHorizontal="30dp"
+         android:text="Zaloguj się"
+-        android:textColor="@color/eye_background" />
++        android:background="@color/cardview_dark_background"
++        android:textColor="@color/eye_background"
++        />
+ 
+     <TextView
+         android:paddingTop="15dp"
+Index: LogowanieP1/app/src/main/res/layout/obiekt_obiektu.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- LogowanieP1/app/src/main/res/layout/obiekt_obiektu.xml	(revision 4b601129a588dc6b2d3bc31e34ccd84c0cfeb41a)
++++ LogowanieP1/app/src/main/res/layout/obiekt_obiektu.xml	(date 1603954947193)
+@@ -7,6 +7,7 @@
+     app:cardCornerRadius="14dp"
+     android:layout_margin="5dp">
+ 
++
+     <RelativeLayout
+         android:layout_width="377dp"
+         android:layout_height="wrap_content"
