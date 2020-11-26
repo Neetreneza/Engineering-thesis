@@ -41,7 +41,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
             imageView = itemView.findViewById(R.id.imageView);
             textView1 = itemView.findViewById(R.id.textView1);
             textView2 = itemView.findViewById(R.id.textView2);
-            //imageView2 = itemView.findViewById(R.id.imageView2); //Usuwajka
+            imageView2 = itemView.findViewById(R.id.imageView2); //Usuwajka
             start =  itemView.findViewById(R.id.startTextView);
             koniec = itemView.findViewById(R.id.koniecTextView);
             miejsce = itemView.findViewById(R.id.miejsceTV);
@@ -60,20 +60,20 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
                 }
             });
 
-//            imageView2.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if(listenerSzczegoly!=null)
-//                    {
-//                        int position = getAdapterPosition();
-//                        if(position!=RecyclerView.NO_POSITION)
-//                        {
-//                            listenerSzczegoly.onDeleteClick(position);
-//                        }
-//                    }
-//
-//                }
-//            });
+            imageView2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listenerSzczegoly!=null)
+                    {
+                        int position = getAdapterPosition();
+                        if(position!=RecyclerView.NO_POSITION)
+                        {
+                            listenerSzczegoly.onDeleteClick(position);
+                        }
+                    }
+
+                }
+            });
 
         }
     }
@@ -101,7 +101,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         holder.imageView.setImageResource(currentItem.getImageResource());
         holder.textView1.setText(currentItem.getText1());
         holder.textView2.setText(currentItem.getText2());
-        //holder.imageView2.setImageResource(currentItem.getImageResource2());
+        holder.imageView2.setImageResource(currentItem.getImageResource2());
         holder.start.setText(currentItem.getStart());
         holder.koniec.setText(currentItem.getKoniec());
         holder.headUser = currentItem.getHeadUser();
