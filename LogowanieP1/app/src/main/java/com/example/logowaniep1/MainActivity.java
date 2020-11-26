@@ -1,35 +1,32 @@
 package com.example.logowaniep1;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button logowanie,wydarzenia,profil,obiekty,profilW, rejestracja, dodajObiekt, zarzadzanie, spisUzytkownikow;
+    Button logowanie,wydarzenia,profil,obiekty,profilW, rejestracja, dodajObiekt, zarzadzanie;
     boolean zalogowany=false;
     TextView tresc,test;
 
     String[] dane;
     String emailBaza, hasloBaza;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.setTitle("Local sports events planner");
 
       logowanie = (Button) findViewById(R.id.przejdzDoLogwaniaB);
       wydarzenia = (Button) findViewById(R.id.przejdzDoWydarzenB);
@@ -41,20 +38,10 @@ public class MainActivity extends AppCompatActivity {
       dodajObiekt = (Button) findViewById(R.id.przejdzDoDodawanieObiektu);
       test = (TextView) findViewById(R.id.textView);
       zarzadzanie = (Button) findViewById(R.id.buttonAdmin);
-      spisUzytkownikow = (Button) findViewById(R.id.spisUzytkownikowMainB);
-      BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationViewMain);
-      bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-      Menu menu = bottomNavigationView.getMenu();
-      MenuItem menuItem = menu.getItem(2);
-      menuItem.setChecked(true);
 
 
-      spisUzytkownikow.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-              otworzListeUzytkownikow();
-          }
-      });
+
+
 
       dodajObiekt.setOnClickListener(new View.OnClickListener() {
           @Override
@@ -112,41 +99,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Intent intent = null;
-            switch (item.getItemId())
-            {
-                case R.id.nav_glowna:
-                    //intent = new Intent(this, MainActivity.class);
-                    break;
-                case R.id.nav_obiekty:
-                    intent = new Intent(getBaseContext(), Obiekty.class);
-                    break;
-                case R.id.nav_wydarzenia:
-                    intent = new Intent(getBaseContext(), Wydarzenia.class);
-                    break;
-                case R.id.nav_profil:
-                    intent = new Intent(getBaseContext(), Profil.class);
-                    break;
-                case R.id.nav_uzytkownicy:
-                    intent = new Intent(getBaseContext(), SpisUzytkownikow.class);
-                    break;
-            }
-            if(intent != null) {
-                startActivity(intent);
-                return true;
-            }
-            else
-                return false;
-        }
-    };
-
-    public void otworzListeUzytkownikow() {
-        Intent intent = new Intent(this, SpisUzytkownikow.class);
-        startActivity(intent);
-    }
 
 
     public void otworzDodawanieObiektu()
@@ -198,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, 1);
         }
         else
-
         {
             tresc.setVisibility(View.INVISIBLE);
             logowanie.setText("Logowanie");

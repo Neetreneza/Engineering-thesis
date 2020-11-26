@@ -1,9 +1,7 @@
 package com.example.logowaniep1;
 
 //TODO OnPluskClick zwraca wartość id obiektu, ktory mozna dodac do formularza dodawania wydarzenia
-//TODO POPRAWIC FORMULARZ
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,12 +21,12 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Obiekty extends AppCompatActivity {
@@ -47,8 +45,6 @@ public class Obiekty extends AppCompatActivity {
     private Statement statement = null;
     private ResultSet resultSet = null;
 
-    BottomNavigationView bottomNavigationViewObiekty;
-
 
 
     @Override
@@ -56,6 +52,9 @@ public class Obiekty extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_obiekty);
+
+        this.setTitle("Lista obiektów sportowych");
+
         progressDialog = new ProgressDialog(this);
         obiektyList =new ArrayList<>();
 
@@ -63,12 +62,7 @@ public class Obiekty extends AppCompatActivity {
         filtrowanieLayout = (LinearLayout) findViewById(R.id.filtrowanieLayout);
         //szczegolyObiektu = (LinearLayout) findViewById(R.id.szczegolyObiektuLayout);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationViewObiektu);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(1);
-        menuItem.setChecked(true);
-
+        filtrowanieLayout.setVisibility(View.GONE);
 
 
         if(getIntent()!=null)
@@ -80,7 +74,6 @@ public class Obiekty extends AppCompatActivity {
 
 
         createObiektList cOL = new createObiektList();
-
         cOL.execute();
         //buildRecyclerView2();
     }
@@ -90,7 +83,8 @@ public class Obiekty extends AppCompatActivity {
 
 
         int obiekt_id, kryty, szatnia, oplata, aktywny, cena;
-        String nazwa, miejscowosc, ulica, numerLokalu, wojewodztwo, kodPocztowy, email, telefon, opis, numerRachunku, dyscyplina, KrytoscSzatnosc="";
+        Float cena1;
+        String nazwa, miejscowosc, ulica, numerLokalu, wojewodztwo, kodPocztowy, email, telefon, opis, numerRachunku, dyscyplina, KrytoscSzatnosc="", wlasciciel_kontakt;
 
         @Override
         protected void onPreExecute() {
@@ -116,7 +110,7 @@ public class Obiekty extends AppCompatActivity {
                 connection = ConnectionManager.getConnection();
                 statement = connection.createStatement();
 
-                ResultSet resultSet = statement.executeQuery("select obiekt.*, obiekt_cennik.*, dyscyplina.* from obiekt,obiekt_cennik, dyscyplina where obiekt.obiekt_id = obiekt_cennik.obiekt_id and obiekt_cennik.dyscyplina_id = dyscyplina.dyscyplina_id");
+                ResultSet resultSet = statement.executeQuery("select obiekt.*, obiekt_cennik.*, dyscyplina.*, uzytkownik.email AS kontakt_do_wlasciciela, wojewodztwo.nazwa from obiekt,obiekt_cennik, dyscyplina, uzytkownik, wojewodztwo where obiekt.aktywny = 1 and obiekt.obiekt_id = obiekt_cennik.obiekt_id and obiekt_cennik.dyscyplina_id = dyscyplina.dyscyplina_id and obiekt.wlasciciel_id=uzytkownik.uzytkownik_id AND obiekt.wojewodztwo_id=wojewodztwo.wojewodztwo_id;");
                 while (resultSet.next()) {
 // DODAC FILTROWANIE WYNIKOW
                     Log.i("while","Czytam z wynikow");
@@ -125,7 +119,7 @@ public class Obiekty extends AppCompatActivity {
                     miejscowosc = resultSet.getString(3);
                     ulica = resultSet.getString(4);
                     numerLokalu = resultSet.getString(5);
-                    wojewodztwo = resultSet.getString(6);
+                    wojewodztwo = resultSet.getString(25);
                     kodPocztowy = resultSet.getString(7);
                     email = resultSet.getString(8);
                     telefon = resultSet.getString(9);
@@ -135,8 +129,10 @@ public class Obiekty extends AppCompatActivity {
                     numerRachunku = resultSet.getString(13);
                     opis = resultSet.getString(14);
                     aktywny = resultSet.getInt(15);
-                    cena = resultSet.getInt(20);
-                    dyscyplina = resultSet.getString(22);
+                    wlasciciel_kontakt = resultSet.getString(24);
+                    java.sql.Timestamp dbSqlTimestamp = resultSet.getTimestamp(17);
+                    cena1 = resultSet.getFloat(21);
+                    dyscyplina = resultSet.getString(23);
                     if(kryty == 1)
                         KrytoscSzatnosc = "Kryty";
                     else
@@ -145,7 +141,8 @@ public class Obiekty extends AppCompatActivity {
                         KrytoscSzatnosc += ", posiada szatnie";
                     else
                         KrytoscSzatnosc += ", bez szatni";
-                            obiektyList.add(new ObiektyItem(R.drawable.gora, dyscyplina,  Integer.toString(cena) + "zł/h" , miejscowosc, nazwa, ulica+"/"+ numerLokalu, KrytoscSzatnosc, Integer.toString(obiekt_id)));
+
+                    obiektyList.add(new ObiektyItem(R.drawable.gora, obiekt_id, nazwa, miejscowosc, ulica, numerLokalu, wojewodztwo, kodPocztowy, email, telefon, kryty, szatnia, oplata, numerRachunku, opis, aktywny, dbSqlTimestamp, Float.toString(cena1) + "zł/h", dyscyplina, KrytoscSzatnosc, wlasciciel_kontakt));
 
                     Log.i("while","dodaje obiekt: " + dyscyplina + " " + dyscyplina + " " + miejscowosc);
 
@@ -208,14 +205,14 @@ public class Obiekty extends AppCompatActivity {
         adapter2.setOnItemClickListener(new ObiektAdapter.onItemClickListener() {
             @Override
             public void onPlusClick(int position) {
-                String id = obiektyList.get(position).getOText0();
-                int idInt = Integer.parseInt(id);
-                Log.i("Klik",id);
+                int id = obiektyList.get(position).getObiekt_id();
+                //int idInt = Integer.parseInt(id);
+                //Log.i("Klik",id);
                 if(intent!=null)
                 {
                     Intent resultIntent = new Intent();
-                    resultIntent.putExtra("result", idInt);
-                    Log.i("Klik", String.valueOf(idInt));
+                    resultIntent.putExtra("result", id);
+                    Log.i("Klik", String.valueOf(id));
                     setResult(RESULT_OK, resultIntent);
                     finish();
                 }
@@ -225,8 +222,10 @@ public class Obiekty extends AppCompatActivity {
             public void onItemClick(int position) {
                 Log.i("Klik","KLIKKKK");
                 obiektyList.get(position);
-
-
+                int id = obiektyList.get(position).getObiekt_id();
+                Intent intent = new Intent(Obiekty.this, SzczegolyObiekt.class);
+                intent.putExtra("obiekt",obiektyList.get(position));
+                startActivity(intent);
             }
 
         });
@@ -265,35 +264,5 @@ public class Obiekty extends AppCompatActivity {
         });
         return true;
     }
-    public BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Intent intent = null;
-            switch (item.getItemId())
-            {
-                case R.id.nav_glowna:
-                    intent = new Intent(getBaseContext(), MainActivity.class);
-                    break;
-                case R.id.nav_obiekty:
-                    //intent = new Intent(getBaseContext(), Obiekty.class);
-                    break;
-                case R.id.nav_wydarzenia:
-                    intent = new Intent(getBaseContext(), Wydarzenia.class);
-                    break;
-                case R.id.nav_profil:
-                    intent = new Intent(getBaseContext(), Profil.class);
-                    break;
-                case R.id.nav_uzytkownicy:
-                    intent = new Intent(getBaseContext(), SpisUzytkownikow.class);
-                    break;
-            }
-            if(intent != null) {
-                startActivity(intent);
-                return true;
-            }
-            else
-                return false;
-        }
-    };
 
 }

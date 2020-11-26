@@ -1,16 +1,12 @@
 package com.example.logowaniep1;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -30,19 +28,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class SzczegolyWydarzenia extends AppCompatActivity {
-    EditText headUser,cena,data,godzina,miejsce,nazwa,obiekt,opis;
-    TextView oplacony;
+    TextView headUser,cena,data,godzina,miejsce, nazwa,obiekt,opis;
     ImageView image;
-    Button dolacz, zaplac;
+    Button dolacz;
     private RecyclerView recyclerView;
     private  RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     ProgressDialog progressDialog;
-    int identyfikatorWydarzenia, status;
+    int identyfikatorWydarzenia;
     int headUserInt;
     ArrayList<UzytkownicyItem> uzytkownicyLista;
     Boolean czyJestem = false;
-    String headUserS;
 
     private Connection connection = null;
     private Statement statement = null;
@@ -55,26 +51,23 @@ public class SzczegolyWydarzenia extends AppCompatActivity {
         uzytkownicyLista = new ArrayList<>();
 
 
-        nazwa = (EditText) findViewById(R.id.nazwaWydSzczeET);
-        headUser = (EditText) findViewById(R.id.headUserWydSzczeET);
-        cena = (EditText) findViewById(R.id.cenaWydSzczeET);
-        data = (EditText) findViewById(R.id.dataWydSzczeET);
-        opis = (EditText) findViewById(R.id.opisWydSzczeET);
-        godzina = (EditText) findViewById(R.id.godzinaWydSzczeET);
-        miejsce = (EditText) findViewById(R.id.miejsceWydSzczeET);
-        obiekt = (EditText) findViewById(R.id.obiektWydSzczeET);
+        nazwa = (TextView) findViewById(R.id.nazwaWydSzczeET);
+        headUser = (TextView) findViewById(R.id.headUserWydSzczeET);
+        cena = (TextView) findViewById(R.id.cenaWydSzczeET);
+        data = (TextView) findViewById(R.id.dataWydSzczeET);
+        opis = (TextView) findViewById(R.id.opisWydSzczeET);
+        godzina = (TextView) findViewById(R.id.godzinaWydSzczeET);
+        miejsce = (TextView) findViewById(R.id.miejsceWydSzczeET);
+        obiekt = (TextView) findViewById(R.id.obiektWydSzczeET);
         image = (ImageView) findViewById(R.id.imageView3);
         dolacz = (Button) findViewById(R.id.dolaczSzczeWydB);
-        zaplac = (Button) findViewById(R.id.zaplacSzczeWydB);
-        oplacony = (TextView) findViewById(R.id.oplacony);
-        //zaplac.setVisibility(View.GONE);
 
         progressDialog = new ProgressDialog(this);
 
         Intent intent = getIntent();
         nazwa.setText(intent.getStringExtra("nazwa"));
-        headUser.setText(intent.getStringExtra("imie")+" "+intent.getStringExtra("nazwisko"));
-        //headUserInt = Integer.parseInt(headUser.getText().toString());
+        headUser.setText(intent.getStringExtra("headUser"));
+        headUserInt = Integer.parseInt(headUser.getText().toString());
         cena.setText(intent.getStringExtra("cena"));
         data.setText(intent.getStringExtra("start"));
         godzina.setText(intent.getStringExtra("koniec"));
@@ -83,10 +76,8 @@ public class SzczegolyWydarzenia extends AppCompatActivity {
         obiekt.setText(intent.getStringExtra("obiektId"));
         identyfikatorWydarzenia = intent.getIntExtra("wydarzenieId",0);
         opis.setText(intent.getStringExtra("opis"));
-        headUserS = intent.getStringExtra("headUser");
-        status = intent.getIntExtra("status",0);
 
-        DrawableCompat.setTint(image.getDrawable(), Color.BLACK);
+        this.setTitle("Szczegóły wydarzenia: " + intent.getStringExtra("nazwa"));
 
         dolacz.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,35 +85,6 @@ public class SzczegolyWydarzenia extends AppCompatActivity {
                 dolaczanie();
             }
         });
-
-        zaplac.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SzczegolyWydarzenia.this, Zaplac.class);
-                startActivity(intent);
-            }
-        });
-
-        if(Integer.parseInt(headUserS) == Singleton.getInstance().getUzytkownikID()) {
-            if (status == 1) {
-                oplacony.setText("Wydarzenie opłacone");
-                zaplac.setEnabled(false);
-            } else {
-                oplacony.setText("Wydarzenie nie jest opłacone");
-                oplacony.setTextColor(Color.RED);
-                zaplac.setEnabled(true);
-            }
-        }
-        else
-        {
-            if (status == 1) {
-                oplacony.setText("Wydarzenie opłacone");
-                zaplac.setVisibility(View.GONE);
-            } else {
-                oplacony.setText("Wydarzenie nie jest opłacone");
-                zaplac.setVisibility(View.GONE);
-            }
-        }
 
         ListaUzytkownikowBaza listaUzytkownikowBaza = new ListaUzytkownikowBaza();
         listaUzytkownikowBaza.execute();
@@ -206,7 +168,6 @@ public class SzczegolyWydarzenia extends AppCompatActivity {
             else
                 dolacz.setText("Dołącz");
             }
-
         }
     }
 
@@ -218,8 +179,6 @@ public class SzczegolyWydarzenia extends AppCompatActivity {
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-
-
     }
 
     private class Dolaczanie extends AsyncTask<String,String,String>

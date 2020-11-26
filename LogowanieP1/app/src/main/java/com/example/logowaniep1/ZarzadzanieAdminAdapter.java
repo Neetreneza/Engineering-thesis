@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+// TODO poprawić spieprzone nazwy
+
 public class ZarzadzanieAdminAdapter extends RecyclerView.Adapter<ZarzadzanieAdminAdapter.ExampleViewHolder> {
 
     private ArrayList<ObiektDoWeryfikacji> mObiektyList;
