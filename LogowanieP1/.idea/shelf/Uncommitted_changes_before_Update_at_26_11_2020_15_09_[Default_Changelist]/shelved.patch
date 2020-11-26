@@ -1,0 +1,3080 @@
+Index: app/src/main/java/com/example/logowaniep1/activity_profil.xml
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/activity_profil.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/activity_profil.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,445 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:layout_margin="5dp"
+-    android:orientation="vertical"
+-    tools:context=".Profil">
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:layout_marginBottom="10dp"
+-        android:layout_weight="0.5"
+-        android:orientation="horizontal">
+-
+-        <TextView
+-            android:id="@+id/textView7"
+-            android:layout_width="wrap_content"
+-            android:layout_height="match_parent"
+-            android:layout_weight="0.001"
+-            android:text="Nazwa" />
+-
+-        <ImageView
+-            android:id="@+id/imageView6"
+-            android:layout_width="wrap_content"
+-            android:layout_height="match_parent"
+-            android:layout_weight="5"
+-            app:srcCompat="@drawable/domyslne" />
+-
+-        <LinearLayout
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:orientation="vertical">
+-
+-            <ImageView
+-                android:id="@+id/imageView5"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_marginTop="10dp"
+-                android:layout_marginBottom="10dp"
+-                android:layout_weight="1"
+-                app:srcCompat="@drawable/info" />
+-
+-            <ImageView
+-                android:id="@+id/imageView7"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_marginBottom="10dp"
+-                android:layout_weight="1"
+-                app:srcCompat="@drawable/email" />
+-
+-            <ImageView
+-                android:id="@+id/ustawieniaProfil"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_weight="1"
+-                app:srcCompat="@drawable/settings" />
+-        </LinearLayout>
+-
+-    </LinearLayout>
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:layout_weight="10"
+-        android:orientation="horizontal">
+-
+-        <LinearLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="match_parent"
+-            android:orientation="vertical">
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_weight="1"
+-                android:orientation="vertical"
+-                android:gravity="center_horizontal"
+-                >
+-
+-                <LinearLayout
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="1"
+-                    android:orientation="horizontal">
+-
+-                    <EditText
+-                        android:id="@+id/nazwaProfilET"
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:layout_weight="1"
+-                        android:editable="false"
+-                        android:ems="10"
+-                        android:inputType="textPersonName"
+-                        android:text="Name"
+-                        android:textAlignment="viewEnd" />
+-
+-                    <EditText
+-                        android:id="@+id/nazwiskoProfilET"
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:layout_weight="1"
+-                        android:editable="false"
+-                        android:ems="10"
+-                        android:inputType="textPersonName"
+-                        android:text="Name"
+-                        android:textAlignment="viewStart" />
+-                </LinearLayout>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_weight="1"
+-                android:orientation="vertical">
+-
+-                <TextView
+-                    android:id="@+id/ProfilTV3"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="E-mail"
+-                    android:textColor="@color/colorPrimary"
+-                    android:textSize="12sp"
+-                    />
+-
+-                <EditText
+-                    android:id="@+id/emailProfilET"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:ems="10"
+-                    android:inputType="textPersonName"
+-                    android:text="email"
+-                    android:textSize="18sp"
+-                    android:layout_marginBottom="10dp"
+-                    android:editable="false"
+-                    />
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_weight="1"
+-                android:orientation="vertical">
+-
+-                <TextView
+-                    android:id="@+id/ProfilTV4"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="Ocena"
+-                    android:textColor="@color/colorPrimary"
+-                    android:textSize="12sp"
+-                    />
+-
+-
+-                <TextView
+-                    android:id="@+id/ocenaProfilET"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:ems="10"
+-                    android:inputType="textPersonName"
+-                    android:text="0"
+-                    android:textSize="18sp"
+-                    android:layout_marginBottom="10dp"
+-                    />
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_weight="1"
+-                android:orientation="vertical">
+-
+-                <TextView
+-                    android:id="@+id/ProfilT5"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="Data Urodzenia"
+-                    android:textColor="@color/colorPrimary"
+-                    android:textSize="12sp"
+-                    />
+-
+-                <EditText
+-                    android:id="@+id/dataUrodzeniaProfilET"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:ems="10"
+-                    android:inputType="textPersonName"
+-                    android:text="1"
+-                    android:textSize="18sp"
+-                    android:layout_marginBottom="10dp"
+-                    android:editable="false"
+-                    />
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_weight="1"
+-                android:orientation="vertical">
+-
+-                <TextView
+-                    android:id="@+id/ProfilTV6"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="Telefon"
+-                    android:textColor="@color/colorPrimary"
+-                    android:textSize="12sp" />
+-
+-                <EditText
+-                    android:id="@+id/telefonET"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:ems="10"
+-                    android:inputType="textPersonName"
+-                    android:text="3"
+-                    android:textSize="18sp"
+-                    android:layout_marginBottom="10dp"
+-                    />
+-
+-                <Button
+-                    android:id="@+id/zapiszUstawieniaProfiluB"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="Zapisz"
+-                    android:visibility="gone"
+-                    tools:visibility="gone" />
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_weight="1"
+-                android:orientation="vertical">
+-
+-                <TextView
+-                    android:id="@+id/ProfilTV7"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="Aktywne wydarzenia" />
+-
+-                <TextView
+-                    android:id="@+id/AWYdarzeniaProfilET"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:ems="10"
+-                    android:inputType="textPersonName"
+-                    android:text="2" />
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_weight="1"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/znajomiProfilTV"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="Znajomi" />
+-
+-                <TextView
+-                    android:id="@+id/znajomiProfilET"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:ems="10"
+-                    android:inputType="textPersonName"
+-                    android:text="Brak" />
+-
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:id="@+id/znajomiButtonyLayout"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_weight="1"
+-                android:orientation="horizontal">
+-
+-                <Button
+-                    android:id="@+id/SzukajZnajomychProfilButton"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="Szukaj" />
+-
+-                <Button
+-                    android:id="@+id/PokazZnajomychProfilButton"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="Wyświetl" />
+-
+-            </LinearLayout>
+-
+-            <ImageView
+-                android:id="@+id/znajomiSchowajImg"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_weight="0.3"
+-                app:srcCompat="@drawable/ic_arrow_drop_up_black_24dp" />
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_weight="1"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/umiejetnosciProfilTV"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="Umiejętnosci" />
+-
+-                <TextView
+-                    android:id="@+id/umiejetnosciProfilET"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:ems="10"
+-                    android:inputType="textPersonName"
+-                    android:text="3" />
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:id="@+id/umiejetnosciSzczegoly"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_weight="1"
+-                android:orientation="horizontal">
+-
+-                <LinearLayout
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:orientation="vertical">
+-
+-                    <LinearLayout
+-                        android:layout_width="match_parent"
+-                        android:layout_height="match_parent"
+-                        android:orientation="horizontal">
+-
+-                        <TextView
+-                            android:id="@+id/nogaTV"
+-                            android:layout_width="wrap_content"
+-                            android:layout_height="wrap_content"
+-                            android:layout_weight="1"
+-                            android:text="Piłka nożna" />
+-
+-                        <Button
+-                            android:id="@+id/nogaNiski"
+-                            android:layout_width="wrap_content"
+-                            android:layout_height="wrap_content"
+-                            android:layout_weight="5"
+-                            android:text="Niski" />
+-
+-                        <Button
+-                            android:id="@+id/nogaSredni"
+-                            android:layout_width="wrap_content"
+-                            android:layout_height="wrap_content"
+-                            android:layout_weight="1"
+-                            android:onClick="click"
+-                            android:text="Średni" />
+-
+-                        <Button
+-                            android:id="@+id/nogaWysoki"
+-                            android:layout_width="wrap_content"
+-                            android:layout_height="wrap_content"
+-                            android:layout_weight="1"
+-                            android:onClick="click"
+-                            android:text="Wysoki" />
+-
+-                    </LinearLayout>
+-
+-                    <LinearLayout
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="match_parent"
+-                        android:orientation="horizontal">
+-
+-                        <TextView
+-                            android:id="@+id/kosz"
+-                            android:layout_width="wrap_content"
+-                            android:layout_height="wrap_content"
+-                            android:layout_weight="1"
+-                            android:text="Koszykówka" />
+-
+-                        <Button
+-                            android:id="@+id/koszNiski"
+-                            android:layout_width="wrap_content"
+-                            android:layout_height="wrap_content"
+-                            android:layout_weight="5"
+-                            android:onClick="click"
+-                            android:text="Niski" />
+-
+-                        <Button
+-                            android:id="@+id/koszSredni"
+-                            android:layout_width="wrap_content"
+-                            android:layout_height="wrap_content"
+-                            android:layout_weight="1"
+-                            android:onClick="click"
+-                            android:text="Średni" />
+-
+-                        <Button
+-                            android:id="@+id/koszWysoki"
+-                            android:layout_width="wrap_content"
+-                            android:layout_height="wrap_content"
+-                            android:layout_weight="1"
+-                            android:onClick="click"
+-                            android:text="Wysoki" />
+-
+-                    </LinearLayout>
+-
+-                    <ImageView
+-                        android:id="@+id/umiejetnosciSchowajImg"
+-                        android:layout_width="match_parent"
+-                        android:layout_height="wrap_content"
+-                        android:layout_weight="2"
+-                        app:srcCompat="@drawable/ic_arrow_drop_up_black_24dp" />
+-                </LinearLayout>
+-            </LinearLayout>
+-
+-        </LinearLayout>
+-
+-    </LinearLayout>
+-</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/logowaniep1/activity_obiekty.xml
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/activity_obiekty.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/activity_obiekty.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,75 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    tools:context=".Obiekty"
+-    android:background="@drawable/tlo"
+-   >
+-
+-    <androidx.recyclerview.widget.RecyclerView
+-        android:id="@+id/recyclerViewObiekty"
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:layout_marginBottom="60dp"
+-        android:background="@drawable/tlo"
+-        android:padding="4dp"
+-        android:scrollbars="vertical"
+-
+-
+-        >
+-
+-
+-    </androidx.recyclerview.widget.RecyclerView>
+-
+-    <Button
+-        android:id="@+id/dodajObiekt"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_alignParentStart="true"
+-        android:layout_alignParentBottom="true"
+-        android:layout_marginStart="51dp"
+-        android:layout_marginBottom="5dp"
+-        android:background="@color/cardview_dark_background"
+-        android:textColor="@color/eye_background"
+-        android:text="Dodaj" />
+-
+-    <Button
+-        android:id="@+id/filtrowanieObiektyB"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_alignParentEnd="true"
+-        android:layout_alignParentBottom="true"
+-        android:layout_marginEnd="50dp"
+-        android:layout_marginBottom="6dp"
+-        android:background="@color/cardview_dark_background"
+-        android:textColor="@color/eye_background"
+-        android:text="Filtruj" />
+-
+-    <LinearLayout
+-        android:id="@+id/filtrowanieLayout"
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:orientation="vertical"
+-        tools:visibility="gone">
+-
+-        <EditText
+-            android:id="@+id/nazwaFiltrowanieObiektu"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:ems="10"
+-            android:hint="nazwa"
+-            android:inputType="textPersonName" />
+-
+-        <EditText
+-            android:id="@+id/miejscowoscFiltrowanieObiektu"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:ems="10"
+-            android:hint="miejscowość"
+-            android:inputType="textPersonName" />
+-
+-    </LinearLayout>
+-
+-</RelativeLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/logowaniep1/activity_rejestracja.xml
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/activity_rejestracja.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/activity_rejestracja.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,103 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="wrap_content"
+-    android:orientation="vertical"
+-    tools:context=".Rejestracja"
+-    android:background="@drawable/tlo"
+-    android:paddingTop = "100dp"
+-    android:gravity="center_horizontal"
+-    >
+-
+-    <EditText
+-        android:id="@+id/nazwiskoR"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:ems="10"
+-        android:hint="nazwisko"
+-        android:inputType="textPersonName" />
+-
+-    <EditText
+-        android:id="@+id/nazwaR"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:ems="10"
+-        android:hint="imię"
+-        android:inputType="textPersonName" />
+-
+-    <EditText
+-        android:id="@+id/emailR"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:ems="10"
+-        android:hint="e-mail"
+-        android:inputType="textEmailAddress" />
+-
+-    <EditText
+-        android:id="@+id/dataUrodzeniaR"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:ems="10"
+-        android:hint="data urodzenia (YYYY-MM-DD)"
+-        android:inputType="date" />
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:orientation="horizontal">
+-
+-        <EditText
+-            android:id="@+id/hasloR"
+-            android:layout_width="367dp"
+-            android:layout_height="wrap_content"
+-            android:ems="10"
+-            android:hint="hasło"
+-            android:inputType="textPassword" />
+-
+-        <ImageView
+-            android:id="@+id/pokazHasloB1"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            app:srcCompat="@android:drawable/ic_menu_view" />
+-
+-    </LinearLayout>
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:orientation="horizontal">
+-
+-        <EditText
+-            android:layout_marginBottom="20dp"
+-            android:id="@+id/haslo2R"
+-            android:layout_width="367dp"
+-            android:layout_height="wrap_content"
+-            android:ems="10"
+-            android:hint="potwierdź hasło"
+-            android:inputType="textPassword" />
+-
+-        <ImageView
+-            android:id="@+id/pokazHasloB2"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            app:srcCompat="@android:drawable/ic_menu_view" />
+-
+-    </LinearLayout>
+-
+-    <Button
+-        android:background="@color/cardview_dark_background"
+-        android:textColor="@color/eye_background"
+-        android:paddingHorizontal="30dp"
+-        android:id="@+id/rejestracjaB"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:text="Rejestracja"
+-        />
+-
+-
+-
+-</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/logowaniep1/activity_logowanie.xml
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/activity_logowanie.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/activity_logowanie.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,71 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@+id/layoutGlownyLogowanie"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:background="@drawable/tlo"
+-    android:orientation="vertical"
+-    android:gravity="center_horizontal"
+-
+-
+-    tools:context=".Logowanie">
+-
+-
+-    <EditText
+-        android:layout_marginTop="170dp"
+-        android:id="@+id/emailET"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:ems="10"
+-        android:hint="E-mail"
+-        android:inputType="textPersonName" />
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content">
+-
+-        <EditText
+-            android:id="@+id/hasloET"
+-            android:layout_width="381dp"
+-            android:layout_height="wrap_content"
+-            android:ems="10"
+-            android:hint="Hasło"
+-            android:inputType="textPassword" />
+-
+-        <ImageView
+-            android:id="@+id/pokazHasloB3"
+-
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            app:srcCompat="@android:drawable/ic_menu_view" />
+-    </LinearLayout>
+-
+-    <Button
+-        android:id="@+id/logowanieB"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:paddingHorizontal="30dp"
+-        android:text="Zaloguj się"
+-        android:background="@color/cardview_dark_background"
+-        android:textColor="@color/eye_background"
+-        />
+-
+-    <TextView
+-        android:paddingTop="15dp"
+-        android:textAlignment="center"
+-        android:id="@+id/textView8"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:text="Nie masz konta?" />
+-
+-    <TextView
+-        android:textAlignment="center"
+-        android:textColor="@color/colorPrimaryDark"
+-        android:id="@+id/textView9"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:text="Załóż konto" />
+-
+-</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/logowaniep1/build.gradle
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/build.gradle	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/build.gradle	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,79 +0,0 @@
+-apply plugin: 'com.android.application'
+-
+-android {
+-    compileSdkVersion 29
+-    buildToolsVersion "29.0.3"
+-
+-    defaultConfig {
+-        applicationId "com.example.logowaniep1"
+-        minSdkVersion 21
+-        targetSdkVersion 29
+-        versionCode 1
+-        versionName "1.0"
+-
+-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+-
+-        // Read the API key from ./secure.properties into R.string.maps_api_key
+-        def secureProps = new Properties()
+-        if (file("../secure.properties").exists()) {
+-            file("../secure.properties")?.withInputStream { secureProps.load(it) }
+-        }
+-        resValue "string", "maps_api_key", (secureProps.getProperty("MAPS_API_KEY") ?: "")
+-
+-    }
+-
+-    buildTypes {
+-        release {
+-            minifyEnabled false
+-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+-        }
+-    }
+-
+-    compileOptions {
+-        sourceCompatibility JavaVersion.VERSION_1_8
+-        targetCompatibility JavaVersion.VERSION_1_8
+-    }
+-
+-}
+-
+-dependencies {
+-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+-
+-    implementation 'androidx.recyclerview:recyclerview-selection:1.0.0'
+-    implementation 'androidx.cardview:cardview:1.0.0'
+-    implementation 'androidx.appcompat:appcompat:1.1.0'
+-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+-    testImplementation 'junit:junit:4.12'
+-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+-    implementation files('libs/mysql-connector-java-5.1.49.jar')
+-
+-    dependencies {
+-        implementation 'com.jakewharton:butterknife:10.2.3'
+-        annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+-    }
+-
+-    def room_version = "2.2.5"
+-
+-    implementation "androidx.room:room-runtime:$room_version"
+-    annotationProcessor "androidx.room:room-compiler:$room_version"
+-    // For Kotlin use kapt instead of annotationProcessor
+-
+-    // optional - Kotlin Extensions and Coroutines support for Room
+-    implementation "androidx.room:room-ktx:$room_version"
+-
+-    // optional - RxJava support for Room
+-    implementation "androidx.room:room-rxjava2:$room_version"
+-
+-    // optional - Guava support for Room, including Optional and ListenableFuture
+-    implementation "androidx.room:room-guava:$room_version"
+-
+-    // Test helpers
+-    testImplementation "androidx.room:room-testing:$room_version"
+-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+-
+-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+-
+-    implementation 'com.google.android.material:material:1.2.1'
+-}
+Index: app/src/main/java/com/example/logowaniep1/obiekt_uzytkownicy.xml
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/obiekt_uzytkownicy.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/obiekt_uzytkownicy.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,40 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="wrap_content"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    app:cardCornerRadius="14dp"
+-    android:layout_margin="5dp">
+-
+-    <RelativeLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:layout_margin="8dp">
+-
+-
+-        <LinearLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:orientation="vertical"
+-            android:gravity="center_horizontal"
+-            >
+-
+-            <ImageView
+-                android:id="@+id/zdjecieUzytkownikaListaObiekt"
+-                android:layout_width="wrap_content"
+-                android:layout_height="wrap_content"
+-                android:layout_weight="1"
+-                app:srcCompat="@drawable/domyslne" />
+-
+-            <TextView
+-                android:id="@+id/nazwaUzytkownikaListaObiekt"
+-                android:layout_width="wrap_content"
+-                android:layout_height="wrap_content"
+-                android:layout_weight="1"
+-                android:text="Nazwa Uzytkownika" />
+-        </LinearLayout>
+-    </RelativeLayout>
+-
+-
+-</androidx.cardview.widget.CardView>
+\ No newline at end of file
+Index: app/src/main/java/com/example/logowaniep1/activity_szczegoly_admin.xml
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/activity_szczegoly_admin.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/activity_szczegoly_admin.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,320 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    tools:context=".SzczegolyAdminActivity"
+-    android:orientation="vertical"
+-    android:background="@drawable/tlo">
+-
+-    <ScrollView
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent">
+-
+-        <LinearLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:orientation="vertical">
+-
+-            <ImageView
+-                android:id="@+id/zdjecie"
+-                android:layout_width="200dp"
+-                android:layout_height="200dp">
+-            </ImageView>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/wlascicielTextView"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1.5"
+-                    android:text="Właściciel:"
+-                    android:textAlignment="center"
+-                    android:textStyle="bold"
+-                    android:textSize="18sp"/>
+-
+-                <TextView
+-                    android:id="@+id/wlascicielTextView2"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textStyle="italic"
+-                    android:textSize="16sp"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/nazwaTextView"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="1.5"
+-                    android:text="@string/nazwaObiektu"
+-                    android:textAlignment="center"
+-                    android:textSize="18sp"
+-                    android:textStyle="bold"/>
+-
+-                <EditText
+-                    android:id="@+id/nazwaEditText"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:inputType="text"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/miejscowoscTextView"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="1.5"
+-                    android:text="@string/miejscowosc"
+-                    android:textAlignment="center"
+-                    android:textSize="18sp"
+-                    android:textStyle="bold"/>
+-
+-                <EditText
+-                    android:id="@+id/miejscowoscEditText"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:inputType="text"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/ulicaTextView"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="1.5"
+-                    android:text="@string/ulica"
+-                    android:textAlignment="center"
+-                    android:textStyle="bold"
+-                    android:textSize="18sp"/>
+-
+-                <EditText
+-                    android:id="@+id/ulicaEditText"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:inputType="text"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/lokalTextView"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="1.5"
+-                    android:text="@string/nr_lokalu"
+-                    android:textAlignment="center"
+-                    android:textStyle="bold"
+-                    android:textSize="18sp"/>
+-
+-                <EditText
+-                    android:id="@+id/lokalEditText"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:inputType="text"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/wojewodztwoTextView"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="1.5"
+-                    android:text="@string/wojewodztwo"
+-                    android:textAlignment="center"
+-                    android:textStyle="bold"
+-                    android:textSize="18sp"/>
+-
+-                <EditText
+-                    android:id="@+id/wojewodztwoEditText"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:inputType="text"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/kodPocztowyTextView"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="1.5"
+-                    android:text="@string/kod_pocztowy"
+-                    android:textAlignment="center"
+-                    android:textStyle="bold"
+-                    android:textSize="18sp"/>
+-
+-                <EditText
+-                    android:id="@+id/kodPocztowyEditText"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:inputType="text"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/emailTextView1"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1.5"
+-                    android:text="@string/email"
+-                    android:textAlignment="center"
+-                    android:textStyle="bold"
+-                    android:textSize="18sp"/>
+-
+-                <TextView
+-                    android:id="@+id/emailTextView2"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textStyle="italic"
+-                    android:textSize="16sp"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/telefonTextView1"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1.5"
+-                    android:text="@string/telefon"
+-                    android:textAlignment="center"
+-                    android:textStyle="bold"
+-                    android:textSize="18sp"/>
+-
+-                <TextView
+-                    android:id="@+id/telefonTextView2"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textStyle="italic"
+-                    android:textSize="16sp"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/rachunekTextView1"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1.5"
+-                    android:text="@string/nr_rachunku"
+-                    android:textAlignment="center"
+-                    android:textStyle="bold"
+-                    android:textSize="16sp"/>
+-
+-                <TextView
+-                    android:id="@+id/rachunekTextView2"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textStyle="italic"
+-                    android:textSize="18sp"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="match_parent"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/opisTextView"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="1.5"
+-                    android:text="@string/opis"
+-                    android:textAlignment="center"
+-                    android:textStyle="bold"
+-                    android:textSize="18sp"/>
+-
+-                <EditText
+-                    android:id="@+id/opisEditText"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="match_parent"
+-                android:orientation="horizontal"
+-                android:layout_marginTop="20dp">
+-
+-                <Button
+-                    android:id="@+id/odrzuc"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="1"
+-                    android:text="@string/odrzuc">
+-                </Button>
+-
+-                <Button
+-                    android:id="@+id/akceptuj"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="1"
+-                    android:text="@string/akceptuj">
+-                </Button>
+-            </LinearLayout>
+-
+-        </LinearLayout>
+-
+-    </ScrollView>
+-
+-</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/logowaniep1/activity_wydarzenia.xml
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/activity_wydarzenia.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/activity_wydarzenia.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,48 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    tools:context=".Wydarzenia"
+-    android:background="@drawable/tlo">
+-
+-    <androidx.recyclerview.widget.RecyclerView
+-        android:id="@+id/recyclerView"
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:layout_alignParentStart="true"
+-        android:layout_alignParentTop="true"
+-        android:layout_marginTop="0dp"
+-        android:layout_marginBottom="100dp"
+-        android:background="@drawable/tlo">
+-
+-        android:background="@android:color/darker_gray"
+-        android:padding="4dp"
+-        android:scrollbars="vertical">
+-
+-
+-    </androidx.recyclerview.widget.RecyclerView>
+-
+-
+-    <Button
+-        android:id="@+id/TestButton1"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_alignParentEnd="true"
+-        android:layout_alignParentBottom="true"
+-        android:layout_marginEnd="51dp"
+-        android:layout_marginBottom="29dp"
+-        android:text="Button" />
+-
+-    <Button
+-        android:id="@+id/dodajWydB"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_alignParentStart="true"
+-        android:layout_alignParentBottom="true"
+-        android:layout_marginStart="44dp"
+-        android:layout_marginBottom="29dp"
+-        android:text="Dodaj wydarzenie" />
+-
+-</RelativeLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/logowaniep1/activity_zarzadzanie_admin.xml
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/activity_zarzadzanie_admin.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/activity_zarzadzanie_admin.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,18 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    tools:context=".ZarzadzanieAdmin"
+-    android:background="@drawable/tlo">
+-
+-    <androidx.recyclerview.widget.RecyclerView
+-        android:id="@+id/recyclerView"
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:padding="4dp"
+-        android:scrollbars="vertical"
+-        />
+-
+-</RelativeLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/logowaniep1/activity_dodaj_wydarzenie.xml
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/activity_dodaj_wydarzenie.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/activity_dodaj_wydarzenie.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,162 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:orientation="vertical"
+-    tools:context=".DodajWydarzenie"
+-    android:background="@drawable/tlo"
+-    >
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:orientation="horizontal">
+-
+-        <TextView
+-            android:id="@+id/textView4"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:text="Obiekt" />
+-
+-        <TextView
+-            android:id="@+id/numerObiektuSzczegolyWydarzenia"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1" />
+-
+-        <ImageView
+-            android:id="@+id/imageView8"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            app:srcCompat="@drawable/delete" />
+-
+-        <Button
+-            android:id="@+id/znajdzObiektDoWydarzeniaB"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:text="Szukaj Obiektu" />
+-
+-        <Button
+-            android:id="@+id/button5"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:text="Szczegóły obiektu" />
+-
+-    </LinearLayout>
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:orientation="horizontal">
+-
+-        <TextView
+-            android:id="@+id/textView17"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:text="Dyscyplina" />
+-
+-        <Spinner
+-            android:id="@+id/wyborDyscyplinySpinner"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1" />
+-    </LinearLayout>
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content">
+-
+-        <TextView
+-            android:id="@+id/TextView321"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:text="Data" />
+-
+-        <TextView
+-            android:id="@+id/dataDodajWydarzenieET"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:ems="10"
+-            android:inputType="date"
+-            android:text="data" />
+-
+-        <Button
+-            android:id="@+id/wybierzDateDodajWydarzenieB"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:text="Wybierz datę" />
+-    </LinearLayout>
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:orientation="horizontal">
+-
+-        <TextView
+-            android:id="@+id/textView10"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:text="Godzina, Od:" />
+-
+-        <EditText
+-            android:id="@+id/godzinaStartDodajWydarzenieET"
+-            android:layout_width="155dp"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:ems="10"
+-            android:inputType="time" />
+-
+-        <TextView
+-            android:id="@+id/textView6"
+-            android:layout_width="28dp"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:text=", do:" />
+-
+-        <EditText
+-            android:id="@+id/godzinaKoniecDodajWydarzenieET"
+-            android:layout_width="142dp"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:ems="10"
+-            android:inputType="textPersonName" />
+-
+-    </LinearLayout>
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:orientation="horizontal">
+-
+-        <TextView
+-            android:id="@+id/textView12"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:text="Opis" />
+-
+-        <EditText
+-            android:id="@+id/opisDodajWydarzenieET"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:ems="10"
+-            android:inputType="textPersonName" />
+-    </LinearLayout>
+-
+-    <Button
+-        android:id="@+id/dodajWydarzenieButton1"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:text="Dodaj wydarzenie" />
+-
+-</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/logowaniep1/dropdown_item.xml
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/dropdown_item.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/dropdown_item.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,12 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+-    android:layout_width="match_parent" android:layout_height="match_parent"
+-    android:padding="16dp"
+-    android:maxLines="1"
+-    android:ellipsize="end"
+-    android:textAppearance="?attr/textAppearanceSubtitle1"
+-    >
+-    <!--
+-    https://material.io/develop/android/components/menu
+-    -->
+-</TextView>
+\ No newline at end of file
+Index: app/src/main/java/com/example/logowaniep1/obiekt_obiektu.xml
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/obiekt_obiektu.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/obiekt_obiektu.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,106 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="wrap_content"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    app:cardCornerRadius="14dp"
+-    android:layout_margin="5dp">
+-
+-
+-    <RelativeLayout
+-        android:layout_width="377dp"
+-        android:layout_height="wrap_content"
+-        android:layout_margin="8dp">
+-
+-        <LinearLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:orientation="vertical">
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal">
+-
+-                <ImageView
+-                    android:id="@+id/imageView4"
+-                    android:layout_width="133dp"
+-                    android:layout_height="match_parent"
+-                    app:srcCompat="@android:drawable/ic_menu_myplaces" />
+-
+-                <LinearLayout
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:orientation="vertical">
+-
+-                    <TextView
+-                        android:id="@+id/cenaTVObiekt"
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:text="50" />
+-
+-                    <TextView
+-                        android:id="@+id/dniTVObiekt"
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:text="Pon-Pt" />
+-
+-                    <TextView
+-                        android:id="@+id/godzinyTVObiekt"
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:text="8-18" />
+-
+-                </LinearLayout>
+-
+-                <Button
+-
+-                    android:id="@+id/plusObiektB"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="+" />
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:id="@+id/szczegolyObiektuLayout"
+-                android:layout_width="match_parent"
+-                android:layout_height="match_parent"
+-                android:orientation="vertical"
+-                android:visibility="visible"
+-                tools:visibility="visible">
+-
+-                <LinearLayout
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:orientation="horizontal">
+-
+-                    <TextView
+-                        android:id="@+id/nazwaSzczegoly"
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:layout_weight="1" />
+-
+-                    <TextView
+-                        android:id="@+id/ulicaNumerSzczegoly"
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:layout_weight="1" />
+-
+-                    <TextView
+-                        android:id="@+id/krytySzatniaSzczegoly"
+-                        android:layout_width="wrap_content"
+-                        android:layout_height="wrap_content"
+-                        android:layout_weight="1" />
+-
+-                </LinearLayout>
+-
+-            </LinearLayout>
+-
+-        </LinearLayout>
+-
+-    </RelativeLayout>
+-
+-</androidx.cardview.widget.CardView>
+\ No newline at end of file
+Index: app/src/main/java/com/example/logowaniep1/activity_profil_wlasciciel.xml
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/activity_profil_wlasciciel.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/activity_profil_wlasciciel.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,153 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:orientation="vertical"
+-    tools:context=".ProfilWlasciciel">
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:orientation="horizontal">
+-
+-        <TextView
+-            android:id="@+id/wlascicielProfilTV"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:text="Wlasciciel" />
+-
+-        <ImageView
+-            android:id="@+id/imageView9"
+-            android:layout_width="wrap_content"
+-            android:layout_height="match_parent"
+-            android:layout_weight="4"
+-            app:srcCompat="@drawable/domyslne" />
+-
+-        <LinearLayout
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:orientation="vertical">
+-
+-            <ImageView
+-                android:id="@+id/imageView11"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_marginTop="10dp"
+-                android:layout_marginBottom="10dp"
+-                app:srcCompat="@drawable/info" />
+-
+-            <ImageView
+-                android:id="@+id/imageView10"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_marginBottom="10dp"
+-                app:srcCompat="@drawable/email" />
+-
+-            <ImageView
+-                android:id="@+id/imageView12"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_marginBottom="10dp"
+-                app:srcCompat="@drawable/settings" />
+-
+-        </LinearLayout>
+-
+-    </LinearLayout>
+-
+-    <TextView
+-        android:id="@+id/nieodczytaneProfilWlasciceila"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:autoText="false"
+-        android:text="Masz nieodczytane wiadomości!"
+-        android:textAlignment="center"
+-        android:textColor="@android:color/holo_red_light" />
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:orientation="horizontal">
+-
+-        <TextView
+-            android:id="@+id/cokolwiekzebydzialalo"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:text="LiczbaObiektow" />
+-
+-        <TextView
+-            android:id="@+id/textView11"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:text="3" />
+-
+-        <Button
+-            android:id="@+id/obiektyWlascicielaProfilW"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:text="Zobacz" />
+-    </LinearLayout>
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:orientation="horizontal">
+-
+-        <TextView
+-            android:id="@+id/textView13"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:text="Dodaj nowy obiekt" />
+-
+-        <Button
+-            android:id="@+id/button4"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_weight="1"
+-            android:text="Formularz" />
+-    </LinearLayout>
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:orientation="horizontal">
+-
+-        <TextView
+-            android:id="@+id/textView14"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:text="Jakie dane muszę posiadać?" />
+-
+-        <ImageView
+-            android:id="@+id/imageView13"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            app:srcCompat="@drawable/info" />
+-    </LinearLayout>
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:orientation="horizontal">
+-
+-        <TextView
+-            android:id="@+id/textView15"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:text="Kiedy jestem właścicielem obiektu?" />
+-
+-        <ImageView
+-            android:id="@+id/imageView14"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            app:srcCompat="@drawable/info" />
+-    </LinearLayout>
+-
+-</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/logowaniep1/activity_szczegoly_wydarzenia.xml
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/activity_szczegoly_wydarzenia.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/activity_szczegoly_wydarzenia.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,256 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:orientation="vertical"
+-    tools:context=".SzczegolyWydarzenia"
+-    android:background="@drawable/tlo">
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:orientation="horizontal"
+-        android:layout_marginBottom="15dp">
+-
+-        <TextView
+-            android:id="@+id/nazwaWydSzczeET"
+-            android:layout_width="wrap_content"
+-            android:layout_height="match_parent"
+-            android:layout_weight="1"
+-            android:textAlignment="center"
+-            android:textStyle="bold"
+-            android:textSize="30sp"
+-            android:layout_marginTop="6dp"
+-            android:ems="10"/>
+-
+-        <Button
+-            android:id="@+id/dolaczSzczeWydB"
+-            android:layout_width="match_parent"
+-            android:layout_height="match_parent"
+-            android:layout_weight="1.5"
+-            android:text="Dołącz" />
+-    </LinearLayout>
+-
+-    <LinearLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:orientation="horizontal">
+-
+-        <LinearLayout
+-            android:layout_width="wrap_content"
+-            android:layout_height="match_parent"
+-            android:orientation="vertical"
+-            android:layout_margin="10dp">
+-
+-            <ImageView
+-                android:id="@+id/imageView3"
+-                android:layout_width="100dp"
+-                android:layout_height="100dp"
+-                app:srcCompat="@drawable/bed" />
+-
+-            <TextView
+-                android:id="@+id/UzytkownicyWydSzczeTV"
+-                android:layout_width="wrap_content"
+-                android:layout_height="wrap_content"
+-                android:textStyle="bold"
+-                android:textSize="16sp"
+-                android:text="Użytkownicy" />
+-
+-            <androidx.recyclerview.widget.RecyclerView
+-                android:id="@+id/recyclerViewUzytkownicy"
+-                android:layout_width="match_parent"
+-                android:layout_height="567dp"
+-                android:layout_marginTop="0dp"
+-                android:layout_marginBottom="100dp"
+-                android:padding="4dp"
+-                android:scrollbars="vertical">
+-
+-
+-            </androidx.recyclerview.widget.RecyclerView>
+-        </LinearLayout>
+-
+-        <LinearLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="match_parent"
+-            android:orientation="vertical">
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal"
+-                android:layout_marginBottom="6dp">
+-
+-                <TextView
+-                    android:id="@+id/textView16"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="2"
+-                    android:textStyle="bold"
+-                    android:textSize="16sp"
+-                    android:text="Założyciel" />
+-
+-                <TextView
+-                    android:id="@+id/headUserWydSzczeET"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textSize="18sp"
+-                    android:ems="10" />
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal"
+-                android:layout_marginBottom="6dp">
+-
+-                <TextView
+-                    android:id="@+id/cenaWydSzczeTV"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="2"
+-                    android:textStyle="bold"
+-                    android:textSize="16sp"
+-                    android:text="Cena" />
+-
+-                <TextView
+-                    android:id="@+id/cenaWydSzczeET"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textSize="18sp"
+-                    android:ems="10" />
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal"
+-                android:layout_marginBottom="6dp">
+-
+-                <TextView
+-                    android:id="@+id/textView18"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="2"
+-                    android:textStyle="bold"
+-                    android:textSize="16sp"
+-                    android:text="Data" />
+-
+-                <TextView
+-                    android:id="@+id/dataWydSzczeET"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textSize="18sp"
+-                    android:ems="10" />
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal"
+-                android:layout_marginBottom="6dp">
+-
+-                <TextView
+-                    android:id="@+id/textView19"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="2"
+-                    android:textStyle="bold"
+-                    android:textSize="16sp"
+-                    android:text="Godzina" />
+-
+-                <TextView
+-                    android:id="@+id/godzinaWydSzczeET"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textSize="18sp"
+-                    android:ems="10" />
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal"
+-                android:layout_marginBottom="6dp">
+-
+-                <TextView
+-                    android:id="@+id/textView20"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="2"
+-                    android:textStyle="bold"
+-                    android:textSize="16sp"
+-                    android:text="Adres" />
+-
+-                <TextView
+-                    android:id="@+id/miejsceWydSzczeET"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textSize="18sp"
+-                    android:ems="10" />
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal"
+-                android:layout_marginBottom="6dp">
+-
+-                <TextView
+-                    android:id="@+id/textView21"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="2"
+-                    android:textStyle="bold"
+-                    android:textSize="16sp"
+-                    android:text="Obiekt" />
+-
+-                <TextView
+-                    android:id="@+id/obiektWydSzczeET"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textSize="18sp"
+-                    android:ems="10" />
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal"
+-                android:layout_marginBottom="6dp">
+-
+-                <TextView
+-                    android:id="@+id/textView5"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="2"
+-                    android:textStyle="bold"
+-                    android:textSize="16sp"
+-                    android:text="Opis" />
+-
+-                <TextView
+-                    android:id="@+id/opisWydSzczeET"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textSize="18sp"
+-                    android:ems="10" />
+-            </LinearLayout>
+-
+-            <TextView
+-                android:id="@+id/textView22"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:textStyle="bold"
+-                android:textSize="16sp"
+-                android:text="Komentarze" />
+-        </LinearLayout>
+-    </LinearLayout>
+-</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/logowaniep1/activity_main.xml
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/activity_main.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/activity_main.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,125 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    tools:context=".MainActivity">
+-
+-    <com.google.android.material.textview.MaterialTextView
+-        android:id="@+id/textView"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:text="Hello Teams!"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintHorizontal_bias="0.498"
+-        app:layout_constraintLeft_toLeftOf="parent"
+-        app:layout_constraintRight_toRightOf="parent"
+-        app:layout_constraintTop_toBottomOf="@+id/buttonAdmin"
+-        app:layout_constraintVertical_bias="0.128" />
+-
+-    <Button
+-        android:id="@+id/przejdzDoLogwaniaB"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginStart="16dp"
+-        android:layout_marginTop="16dp"
+-        android:text="Logowanie"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent" />
+-
+-    <Button
+-        android:id="@+id/przejdzDoRejestracjiB"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginStart="24dp"
+-        android:layout_marginTop="16dp"
+-        android:text="Rejestracja"
+-        app:layout_constraintStart_toEndOf="@+id/przejdzDoLogwaniaB"
+-        app:layout_constraintTop_toTopOf="parent" />
+-
+-    <Button
+-        android:id="@+id/przejdzDoProfiluB"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginStart="16dp"
+-        android:layout_marginTop="20dp"
+-        android:text="Profil"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@+id/przejdzDoLogwaniaB" />
+-
+-    <Button
+-        android:id="@+id/przejdzDoProfiluWlascB"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginStart="16dp"
+-        android:layout_marginTop="20dp"
+-        android:text="Profil właściciela"
+-        app:layout_constraintStart_toEndOf="@+id/przejdzDoProfiluB"
+-        app:layout_constraintTop_toBottomOf="@+id/przejdzDoRejestracjiB" />
+-
+-    <Button
+-        android:id="@+id/przejdzDoWydarzenB"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginStart="16dp"
+-        android:layout_marginTop="20dp"
+-        android:text="Wydarzenia"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@+id/przejdzDoProfiluB" />
+-
+-    <Button
+-        android:id="@+id/przejdzDoObiektow"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginStart="16dp"
+-        android:layout_marginTop="20dp"
+-        android:text="Obiekty"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@+id/przejdzDoWydarzenB" />
+-
+-    <Button
+-        android:id="@+id/przejdzDoDodawanieObiektu"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginStart="16dp"
+-        android:layout_marginTop="20dp"
+-        android:text="Dodaj Obiekt"
+-        app:layout_constraintStart_toEndOf="@+id/przejdzDoObiektow"
+-        app:layout_constraintTop_toBottomOf="@+id/przejdzDoWydarzenB" />
+-
+-    <Button
+-        android:id="@+id/buttonAdmin"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginStart="16dp"
+-        android:layout_marginTop="20dp"
+-        android:text="zarządzanie zgłoszeniami"
+-        android:visibility="invisible"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@+id/przejdzDoObiektow" />
+-
+-    <com.google.android.material.textview.MaterialTextView
+-        android:id="@+id/trescZalogwanych"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginTop="28dp"
+-        android:text="Tresci dla zalogowanego"
+-        android:visibility="invisible"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+-    <!--<TextView
+-        android:id="@+id/trescZalogwanych"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_alignTop="@+id/przejdzDoLogwaniaB"
+-        android:layout_alignParentTop="true"
+-        android:layout_marginTop="24dp"
+-        android:text="Tresci dla zalogowanego"
+-        android:visibility="invisible"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+--->
+-</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/logowaniep1/obiekkt_wydarzenia.xml
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/obiekkt_wydarzenia.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/obiekkt_wydarzenia.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,103 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+-    android:layout_width="match_parent"
+-    android:layout_height="wrap_content"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    app:cardCornerRadius="14dp"
+-    android:layout_margin="5dp">
+-
+-    <RelativeLayout
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:layout_margin="8dp">
+-
+-        <ImageView
+-            android:id="@+id/imageView"
+-            android:layout_width="50dp"
+-            android:layout_height="50dp"
+-            android:padding="2dp"
+-            />
+-
+-
+-        <TextView
+-            android:id="@+id/textView1"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:text="TESTOWANKO"
+-            android:textColor="@android:color/holo_blue_dark"
+-            android:textSize="20sp"
+-            android:textStyle="bold"
+-            android:layout_alignParentTop="true"
+-            android:layout_toEndOf="@+id/imageView"
+-            android:layout_marginStart="8dp"
+-            />
+-
+-        <TextView
+-            android:id="@+id/textView2"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:text="TESTOWANKO2"
+-            android:textColor="@android:color/holo_blue_dark"
+-            android:textSize="15sp"
+-            android:textStyle="bold"
+-            android:layout_below="@id/textView1"
+-            android:layout_toEndOf="@id/imageView"
+-            android:layout_marginStart="8dp"
+-            />
+-
+-        <TextView
+-            android:id="@+id/startTextView"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_below="@id/textView1"
+-            android:layout_marginStart="146dp"
+-            android:layout_marginTop="-9dp"
+-            android:layout_toEndOf="@id/imageView"
+-            android:text="Start: 12:00"
+-            android:textColor="@android:color/holo_blue_dark"
+-            android:textSize="15sp"
+-            android:textStyle="bold" />
+-
+-        <TextView
+-            android:id="@+id/koniecTextView"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_below="@id/textView1"
+-            android:layout_marginStart="146dp"
+-            android:layout_marginTop="11dp"
+-            android:layout_toEndOf="@id/imageView"
+-            android:text="Koniec: 13:00"
+-            android:textColor="@android:color/holo_blue_dark"
+-            android:textSize="15sp"
+-            android:textStyle="bold" />
+-
+-        <ImageView
+-            android:id="@+id/imageView2"
+-            android:layout_width="50dp"
+-            android:layout_height="50dp"
+-            android:layout_below="@id/textView1"
+-            android:layout_marginStart="287dp"
+-            android:layout_marginTop="-29dp"
+-            android:layout_toEndOf="@id/imageView"
+-            android:textColor="@android:color/holo_blue_dark"
+-            android:textSize="15sp"
+-            android:textStyle="bold" />
+-
+-        <TextView
+-            android:id="@+id/miejsceTV"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_alignParentTop="true"
+-            android:layout_alignParentEnd="true"
+-            android:layout_marginTop="1dp"
+-            android:layout_marginStart="146dp"
+-            android:layout_toEndOf="@id/imageView"
+-            android:text="TextView"
+-            android:textColor="@android:color/holo_blue_dark"
+-            android:textSize="15sp"
+-            android:textStyle="bold" />
+-
+-
+-    </RelativeLayout>
+-
+-</androidx.cardview.widget.CardView>
+\ No newline at end of file
+Index: app/src/main/java/com/example/logowaniep1/zarzadzanie_obiekt.xml
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/zarzadzanie_obiekt.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/zarzadzanie_obiekt.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,79 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="wrap_content"
+-    android:layout_margin="5dp"
+-    app:cardCornerRadius="5dp">
+-
+-    <RelativeLayout
+-        android:layout_width="377dp"
+-        android:layout_height="wrap_content"
+-        android:layout_margin="8dp">
+-
+-        <LinearLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:orientation="vertical">
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal">
+-
+-                <ImageView
+-                    android:id="@+id/imageView4"
+-                    android:layout_width="133dp"
+-                    android:layout_height="match_parent"
+-                    app:srcCompat="@android:drawable/ic_menu_myplaces" />
+-
+-                <Button
+-
+-                    android:id="@+id/szczegolyObiekt"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:text="Szczegóły" />
+-
+-                <Button
+-                    android:id="@+id/akceputjObiekt"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:layout_marginRight="10dp"
+-                    android:text="Akceptuj"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:id="@+id/szczegolyZgloszenia"
+-                android:layout_width="match_parent"
+-                android:layout_height="match_parent"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/nazwa"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1" />
+-
+-                <TextView
+-                    android:id="@+id/data"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1" />
+-
+-                <TextView
+-                    android:id="@+id/miejscowosc"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1" />
+-
+-            </LinearLayout>
+-
+-        </LinearLayout>
+-
+-    </RelativeLayout>
+-
+-</androidx.cardview.widget.CardView>
+\ No newline at end of file
+Index: app/src/main/java/com/example/logowaniep1/activity_szczegoly_obiekt.xml
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/activity_szczegoly_obiekt.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/activity_szczegoly_obiekt.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,300 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    tools:context=".SzczegolyAdminActivity"
+-    android:orientation="vertical"
+-    android:background="@drawable/tlo">
+-
+-    <ScrollView
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent">
+-
+-        <LinearLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:orientation="vertical">
+-
+-            <ImageView
+-                android:id="@+id/zdjecie"
+-                android:layout_width="200dp"
+-                android:layout_height="200dp">
+-            </ImageView>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/nazwaTextView"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="1.5"
+-                    android:text="@string/nazwaObiektu"
+-                    android:textAlignment="center"
+-                    android:textSize="17sp"
+-                    android:textStyle="bold"/>
+-
+-                <TextView
+-                    android:id="@+id/nazwaTextView2"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textSize="18sp"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/dyscyplinaTextView"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="1.5"
+-                    android:text="Dyscyplina:"
+-                    android:textAlignment="center"
+-                    android:textSize="17sp"
+-                    android:textStyle="bold"/>
+-
+-                <TextView
+-                    android:id="@+id/dyscyplinaTextView2"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textSize="18sp"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/adresTextView"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="1.5"
+-                    android:text="Adres:"
+-                    android:textAlignment="center"
+-                    android:textStyle="bold"
+-                    android:textSize="17sp"/>
+-
+-                <TextView
+-                    android:id="@+id/adresTextView2"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textSize="18sp"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/emailTextView1"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1.5"
+-                    android:text="@string/email"
+-                    android:textAlignment="center"
+-                    android:textStyle="bold"
+-                    android:textSize="17sp"/>
+-
+-                <TextView
+-                    android:id="@+id/emailTextView2"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textStyle="italic"
+-                    android:textSize="18sp"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/telefonTextView1"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1.5"
+-                    android:text="@string/telefon"
+-                    android:textAlignment="center"
+-                    android:textStyle="bold"
+-                    android:textSize="17sp"/>
+-
+-                <TextView
+-                    android:id="@+id/telefonTextView2"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textStyle="italic"
+-                    android:textSize="18sp"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/opisTextView"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="1.5"
+-                    android:text="@string/opis"
+-                    android:textAlignment="center"
+-                    android:textStyle="bold"
+-                    android:textSize="17sp"/>
+-
+-                <TextView
+-                    android:id="@+id/opisTextView2"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textSize="18sp"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/krytyTextView"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1.5"
+-                    android:textStyle="bold"
+-                    android:textSize="17sp"
+-                    android:textAlignment="center"
+-                    android:text="Kryty: "/>
+-
+-                <TextView
+-                    android:id="@+id/krytyTextView2"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textSize="18sp"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/szatniaTextView"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1.5"
+-                    android:textStyle="bold"
+-                    android:textSize="17sp"
+-                    android:textAlignment="center"
+-                    android:text="Szatnia: "/>
+-
+-                <TextView
+-                    android:id="@+id/szatniaTextView2"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textSize="18sp"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/cenaTextView"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="1.5"
+-                    android:text="Cena:"
+-                    android:textAlignment="center"
+-                    android:textStyle="bold"
+-                    android:textSize="17sp"/>
+-
+-                <TextView
+-                    android:id="@+id/cenaTextView2"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textSize="18sp"/>
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="500dp">
+-
+-                <fragment
+-                    android:id="@+id/map"
+-                    android:name="com.google.android.gms.maps.MapFragment"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent" />
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:layout_marginTop="5dp"
+-                android:layout_width="match_parent"
+-                android:layout_height="40dp"
+-                android:orientation="horizontal">
+-
+-                <TextView
+-                    android:id="@+id/kierownikTextView"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:layout_weight="1.5"
+-                    android:text="Kontakt:"
+-                    android:textAlignment="center"
+-                    android:textStyle="bold"
+-                    android:textSize="17sp"/>
+-
+-                <TextView
+-                    android:id="@+id/kierownikTextView2"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    android:layout_weight="1"
+-                    android:textSize="18sp"/>
+-
+-            </LinearLayout>
+-
+-            <RelativeLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="match_parent">
+-
+-                <Button
+-                    android:id="@+id/stworzWydarzenie"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="match_parent"
+-                    android:layout_centerInParent="true"
+-                    android:maxWidth="400dp"
+-                    android:minWidth="200dp"
+-                    android:text="Utwórz wydarzenie">
+-                </Button>
+-
+-            </RelativeLayout>
+-
+-        </LinearLayout>
+-
+-    </ScrollView>
+-
+-</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/logowaniep1/AndroidManifest.xml
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/AndroidManifest.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/AndroidManifest.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,48 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+-    package="com.example.logowaniep1">
+-
+-    <uses-permission android:name="android.permission.INTERNET" />
+-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+-    <uses-permission android:name=" android.permission.WRITE_EXTERNAL_STORAGE" />
+-
+-    <application
+-        android:allowBackup="true"
+-        android:icon="@mipmap/ic_launcher"
+-        android:label="@string/app_name"
+-        android:roundIcon="@mipmap/ic_launcher_round"
+-        android:supportsRtl="true"
+-        android:theme="@style/AppTheme">
+-        <activity android:name=".SzczegolyObiekt"></activity>
+-        <activity android:name=".SzczegolyAdminActivity" />
+-        <activity android:name=".ZarzadzanieAdmin" />
+-        <activity android:name=".PrzegladWydarzen" />
+-        <activity android:name=".DodajObiekt" />
+-        <activity android:name=".Rejestracja" />
+-        <activity android:name=".Obiekty" />
+-        <activity android:name=".ProfilWlasciciel" />
+-        <activity android:name=".Profil" />
+-        <activity android:name=".SzczegolyWydarzenia" />
+-        <activity android:name=".DodajWydarzenie" />
+-        <activity android:name=".Wydarzenia" />
+-        <activity android:name=".Logowanie" />
+-        <activity android:name=".MainActivity">
+-            <intent-filter>
+-                <action android:name="android.intent.action.MAIN" />
+-
+-                <category android:name="android.intent.category.LAUNCHER" />
+-            </intent-filter>
+-        </activity>
+-
+-        <meta-data
+-            android:name="com.google.android.geo.API_KEY"
+-            android:value="@string/maps_api_key" />
+-
+-        <meta-data
+-            android:name="com.google.android.gms.version"
+-            android:value="@integer/google_play_services_version" />
+-
+-    </application>
+-
+-</manifest>
+\ No newline at end of file
+Index: app/src/main/java/com/example/logowaniep1/activity_dodaj_obiekt.xml
+===================================================================
+--- app/src/main/java/com/example/logowaniep1/activity_dodaj_obiekt.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
++++ app/src/main/java/com/example/logowaniep1/activity_dodaj_obiekt.xml	(revision 66190df36c8d18550f6106db057d2846b26976f3)
+@@ -1,418 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:orientation="vertical"
+-    tools:context=".DodajObiekt"
+-    android:background="@drawable/tlo"
+-    android:gravity="center_horizontal"
+-    >
+-
+-    <ScrollView
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content">
+-
+-        <LinearLayout
+-            android:gravity="center_horizontal"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:orientation="vertical">
+-
+-            <com.google.android.material.textfield.TextInputLayout
+-                android:id="@+id/nazwaDO"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_margin="10dp"
+-                app:boxCornerRadiusTopStart="10dp"
+-                app:boxCornerRadiusTopEnd="10dp"
+-                app:boxCornerRadiusBottomStart="10dp"
+-                app:boxCornerRadiusBottomEnd="10dp"
+-                app:counterEnabled="true"
+-                app:counterMaxLength="45"
+-                app:helperTextEnabled="false"
+-                app:helperText=""
+-                app:helperTextTextColor="#CA2020"
+-                app:endIconMode="clear_text"
+-                android:hint="Nazwa"
+-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+-
+-                <com.google.android.material.textfield.TextInputEditText
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    />
+-
+-            </com.google.android.material.textfield.TextInputLayout>
+-
+-            <com.google.android.material.textfield.TextInputLayout
+-                android:id="@+id/miejscowoscDO"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_margin="10dp"
+-                app:boxCornerRadiusTopStart="10dp"
+-                app:boxCornerRadiusTopEnd="10dp"
+-                app:boxCornerRadiusBottomStart="10dp"
+-                app:boxCornerRadiusBottomEnd="10dp"
+-                app:counterEnabled="false"
+-                app:counterMaxLength="45"
+-                app:helperTextEnabled="false"
+-                app:helperText=""
+-                app:helperTextTextColor="#CA2020"
+-                app:endIconMode="clear_text"
+-                android:hint="Miejscowość"
+-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+-
+-                <com.google.android.material.textfield.TextInputEditText
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    />
+-
+-            </com.google.android.material.textfield.TextInputLayout>
+-
+-            <com.google.android.material.textfield.TextInputLayout
+-                android:id="@+id/ulicaDO"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_margin="10dp"
+-                app:boxCornerRadiusTopStart="10dp"
+-                app:boxCornerRadiusTopEnd="10dp"
+-                app:boxCornerRadiusBottomStart="10dp"
+-                app:boxCornerRadiusBottomEnd="10dp"
+-                app:counterEnabled="false"
+-                app:counterMaxLength="45"
+-                app:helperTextEnabled="false"
+-                app:helperText=""
+-                app:helperTextTextColor="#CA2020"
+-                app:endIconMode="clear_text"
+-                android:hint="Ulica"
+-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+-
+-                <com.google.android.material.textfield.TextInputEditText
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    />
+-
+-            </com.google.android.material.textfield.TextInputLayout>
+-
+-            <com.google.android.material.textfield.TextInputLayout
+-                android:id="@+id/numerLokaluDO"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_margin="10dp"
+-                app:boxCornerRadiusTopStart="10dp"
+-                app:boxCornerRadiusTopEnd="10dp"
+-                app:boxCornerRadiusBottomStart="10dp"
+-                app:boxCornerRadiusBottomEnd="10dp"
+-                app:counterEnabled="false"
+-                app:counterMaxLength="45"
+-                app:helperTextEnabled="false"
+-                app:helperText=""
+-                app:helperTextTextColor="#CA2020"
+-                android:hint="Numer lokalu"
+-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+-
+-                <com.google.android.material.textfield.TextInputEditText
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    />
+-
+-            </com.google.android.material.textfield.TextInputLayout>
+-
+-            <com.google.android.material.textfield.TextInputLayout
+-                android:id="@+id/wojewodztwoDO"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_margin="10dp"
+-                app:boxCornerRadiusTopStart="10dp"
+-                app:boxCornerRadiusTopEnd="10dp"
+-                app:boxCornerRadiusBottomStart="10dp"
+-                app:boxCornerRadiusBottomEnd="10dp"
+-                app:counterEnabled="false"
+-                app:counterMaxLength="45"
+-                app:helperTextEnabled="false"
+-                app:helperText=""
+-                app:helperTextTextColor="#CA2020"
+-                app:endIconMode="dropdown_menu"
+-                android:hint="Województwo"
+-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+-
+-                <AutoCompleteTextView
+-                    android:id="@+id/listaWojewodztw"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"/>
+-
+-            </com.google.android.material.textfield.TextInputLayout>
+-
+-            <com.google.android.material.textfield.TextInputLayout
+-                android:id="@+id/kodPocztowyDO"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_margin="10dp"
+-                app:boxCornerRadiusTopStart="10dp"
+-                app:boxCornerRadiusTopEnd="10dp"
+-                app:boxCornerRadiusBottomStart="10dp"
+-                app:boxCornerRadiusBottomEnd="10dp"
+-                app:counterEnabled="false"
+-                app:counterMaxLength="45"
+-                app:helperTextEnabled="true"
+-                app:helperText="format: XX-XXX"
+-                android:hint="Kod pocztowy"
+-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+-
+-                <com.google.android.material.textfield.TextInputEditText
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    />
+-
+-            </com.google.android.material.textfield.TextInputLayout>
+-
+-            <com.google.android.material.textfield.TextInputLayout
+-                android:id="@+id/emailDO"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_margin="10dp"
+-                app:boxCornerRadiusTopStart="10dp"
+-                app:boxCornerRadiusTopEnd="10dp"
+-                app:boxCornerRadiusBottomStart="10dp"
+-                app:boxCornerRadiusBottomEnd="10dp"
+-                app:counterEnabled="false"
+-                app:counterMaxLength="45"
+-                app:helperTextEnabled="true"
+-                app:helperText="format: abc@poczta.pl"
+-                app:endIconMode="clear_text"
+-                android:hint="E-mail kontaktowy"
+-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+-
+-                <com.google.android.material.textfield.TextInputEditText
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    />
+-
+-            </com.google.android.material.textfield.TextInputLayout>
+-
+-            <com.google.android.material.textfield.TextInputLayout
+-                android:id="@+id/telefonDO"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_margin="10dp"
+-                app:boxCornerRadiusTopStart="10dp"
+-                app:boxCornerRadiusTopEnd="10dp"
+-                app:boxCornerRadiusBottomStart="10dp"
+-                app:boxCornerRadiusBottomEnd="10dp"
+-                app:counterEnabled="false"
+-                app:counterMaxLength="45"
+-                app:helperTextEnabled="true"
+-                app:helperText="format: +48 123456789"
+-                app:endIconMode="clear_text"
+-                android:hint="Telefon kontaktowy"
+-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+-
+-                <com.google.android.material.textfield.TextInputEditText
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    />
+-
+-            </com.google.android.material.textfield.TextInputLayout>
+-
+-            <androidx.constraintlayout.widget.ConstraintLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content">
+-
+-                <TextView
+-                    android:id="@+id/krytyDO"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_marginStart="10dp"
+-                    android:text="Czy obiekt jest kryty?"
+-                    android:textSize="16sp"
+-                    app:layout_constraintBottom_toBottomOf="parent"
+-                    app:layout_constraintStart_toStartOf="parent"
+-                    app:layout_constraintTop_toTopOf="parent" />
+-
+-                <Button
+-                    android:id="@+id/krytyTDO"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_marginEnd="8dp"
+-                    android:text="Tak"
+-                    app:layout_constraintEnd_toStartOf="@+id/krytyNDO"
+-                    app:layout_constraintTop_toTopOf="parent" />
+-
+-                <Button
+-                    android:id="@+id/krytyNDO"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_marginEnd="6dp"
+-                    android:text="Nie"
+-                    app:layout_constraintEnd_toEndOf="parent"
+-                    app:layout_constraintTop_toTopOf="parent" />
+-
+-            </androidx.constraintlayout.widget.ConstraintLayout>
+-
+-            <androidx.constraintlayout.widget.ConstraintLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content">
+-
+-                <TextView
+-                    android:id="@+id/oplataDO"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_marginStart="10dp"
+-                    android:text="Czy obiekt jest płatny?"
+-                    android:textSize="16sp"
+-                    app:layout_constraintBottom_toBottomOf="parent"
+-                    app:layout_constraintStart_toStartOf="parent"
+-                    app:layout_constraintTop_toTopOf="parent" />
+-
+-                <Button
+-                    android:id="@+id/platnyTDO"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_marginEnd="8dp"
+-                    android:text="Tak"
+-                    app:layout_constraintEnd_toStartOf="@+id/platnyNDO"
+-                    app:layout_constraintTop_toTopOf="parent" />
+-
+-                <Button
+-                    android:id="@+id/platnyNDO"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_marginEnd="6dp"
+-                    android:text="Nie"
+-                    app:layout_constraintEnd_toEndOf="parent"
+-                    app:layout_constraintTop_toTopOf="parent" />
+-
+-            </androidx.constraintlayout.widget.ConstraintLayout>
+-
+-            <androidx.constraintlayout.widget.ConstraintLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content">
+-
+-                <TextView
+-                    android:id="@+id/szatniaDO"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_marginStart="10dp"
+-                    android:text="Czy obiekt ma szatnie?"
+-                    android:textSize="16sp"
+-                    app:layout_constraintBottom_toBottomOf="parent"
+-                    app:layout_constraintStart_toStartOf="parent"
+-                    app:layout_constraintTop_toTopOf="parent" />
+-
+-                <Button
+-                    android:id="@+id/szatnieTDO"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_marginEnd="8dp"
+-                    android:text="Tak"
+-                    app:layout_constraintEnd_toStartOf="@+id/szatnieNDO"
+-                    app:layout_constraintTop_toTopOf="parent" />
+-
+-                <Button
+-                    android:id="@+id/szatnieNDO"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_marginEnd="6dp"
+-                    android:text="Nie"
+-                    app:layout_constraintEnd_toEndOf="parent"
+-                    app:layout_constraintTop_toTopOf="parent" />
+-
+-            </androidx.constraintlayout.widget.ConstraintLayout>
+-
+-            <com.google.android.material.textfield.TextInputLayout
+-                android:id="@+id/numerRachunkuDO"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_margin="10dp"
+-                app:boxCornerRadiusTopStart="10dp"
+-                app:boxCornerRadiusTopEnd="10dp"
+-                app:boxCornerRadiusBottomStart="10dp"
+-                app:boxCornerRadiusBottomEnd="10dp"
+-                android:enabled="false"
+-                app:counterEnabled="true"
+-                app:counterMaxLength="26"
+-                app:helperTextEnabled="true"
+-                app:helperText="dostępny jeśli obiekt jest płatny"
+-                app:endIconMode="clear_text"
+-                android:hint="Numer rachunku"
+-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+-
+-                <com.google.android.material.textfield.TextInputEditText
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    />
+-
+-            </com.google.android.material.textfield.TextInputLayout>
+-
+-            <com.google.android.material.textfield.TextInputLayout
+-                android:id="@+id/dyscyplinaDO"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_margin="10dp"
+-                app:boxCornerRadiusTopStart="10dp"
+-                app:boxCornerRadiusTopEnd="10dp"
+-                app:boxCornerRadiusBottomStart="10dp"
+-                app:boxCornerRadiusBottomEnd="10dp"
+-                app:counterEnabled="false"
+-                app:counterMaxLength="45"
+-                app:helperTextEnabled="false"
+-                app:helperText=""
+-                app:helperTextTextColor="#CA2020"
+-                app:endIconMode="dropdown_menu"
+-                android:hint="Dyscyplina"
+-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+-
+-                <AutoCompleteTextView
+-                    android:id="@+id/listaWDyscyplin"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"/>
+-
+-            </com.google.android.material.textfield.TextInputLayout>
+-
+-            <com.google.android.material.textfield.TextInputLayout
+-                android:id="@+id/opisDO"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_margin="10dp"
+-                app:boxCornerRadiusTopStart="10dp"
+-                app:boxCornerRadiusTopEnd="10dp"
+-                app:boxCornerRadiusBottomStart="10dp"
+-                app:boxCornerRadiusBottomEnd="10dp"
+-                app:counterEnabled="false"
+-                app:counterMaxLength="26"
+-                app:helperTextEnabled="true"
+-                app:helperText="pole opcjonalne"
+-                app:endIconMode="clear_text"
+-                android:hint="Opis dodawanego obiektu"
+-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+-
+-                <com.google.android.material.textfield.TextInputEditText
+-                    android:layout_width="match_parent"
+-                    android:layout_height="wrap_content"
+-                    />
+-
+-            </com.google.android.material.textfield.TextInputLayout>
+-
+-            <Button
+-                android:id="@+id/dodajObiektDO"
+-                android:layout_width="wrap_content"
+-                android:layout_height="wrap_content"
+-                android:background="@color/cardview_dark_background"
+-                android:paddingHorizontal="30dp"
+-                android:text="Dodaj obiekt"
+-                android:textColor="@color/eye_background" />
+-
+-            <TextView
+-                android:layout_marginTop="20dp"
+-                android:textSize="12dp"
+-                android:textAlignment="center"
+-                android:id="@+id/textView3"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:text="Przed dodaniem obiektu do użytku naszym użytkownikom, niezbędne jest zaakceptowanie formularza przez administratora serwisu pod kątem jego poprawności. Prosimy o cierpliwość." />
+-        </LinearLayout>
+-    </ScrollView>
+-
+-
+-</LinearLayout>
+\ No newline at end of file
