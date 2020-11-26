@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-// TODO poprawić spieprzone nazwy elementów
-
 public class ObiektAdapter extends RecyclerView.Adapter<ObiektAdapter.ObiektViewHolder> implements Filterable {
 
     private ArrayList<ObiektyItem> obiektyList;
@@ -107,12 +105,12 @@ public class ObiektAdapter extends RecyclerView.Adapter<ObiektAdapter.ObiektView
         ObiektyItem currentItem = obiektyList.get(position);
 
         holder.imageView.setImageResource(currentItem.getImageResource());
-        holder.textView1.setText(currentItem.getDyscyplina());
-        holder.textView2.setText(currentItem.getCena());
-        holder.textView3.setText(currentItem.getMiejscowosc());
-        holder.textView4.setText(currentItem.getNazwa());
-        holder.textView5.setText(currentItem.getUlica()+" "+currentItem.getNumer_lokalu());
-        holder.textView6.setText(currentItem.getKrytoscSzatnosc());
+        holder.textView1.setText(currentItem.getOText1());
+        holder.textView2.setText(currentItem.getOText2());
+        holder.textView3.setText(currentItem.getOText3());
+        holder.textView4.setText(currentItem.getOText4());
+        holder.textView5.setText(currentItem.getOText5());
+        holder.textView6.setText(currentItem.getOText6());
 
 
     }
@@ -140,7 +138,7 @@ public class ObiektAdapter extends RecyclerView.Adapter<ObiektAdapter.ObiektView
 
                 for(ObiektyItem item: obiektyListFull)
                 {
-                    if(item.getDyscyplina().toLowerCase().contains(filterPattern)|| item.getMiejscowosc().toLowerCase().contains(filterPattern) || item.getNazwa().toLowerCase().contains(filterPattern)||item.getUlica().toLowerCase().contains(filterPattern)||item.getNumer_lokalu().toLowerCase().contains(filterPattern)||item.getKrytoscSzatnosc().toLowerCase().contains(filterPattern))
+                    if(item.getOText1().toLowerCase().contains(filterPattern)|| item.getOText3().toLowerCase().contains(filterPattern) || item.getOText4().toLowerCase().contains(filterPattern)||item.getOText5().toLowerCase().contains(filterPattern)||item.getOText6().toLowerCase().contains(filterPattern))
                     {
                         filteredList.add(item);
                     }

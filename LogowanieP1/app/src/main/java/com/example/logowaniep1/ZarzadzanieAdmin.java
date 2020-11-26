@@ -41,8 +41,6 @@ public class ZarzadzanieAdmin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zarzadzanie_admin);
 
-        this.setTitle("Panel administratora");
-
         obiektyList = new ArrayList<>();
 
         progressDialog = new ProgressDialog(this);
@@ -51,17 +49,10 @@ public class ZarzadzanieAdmin extends AppCompatActivity {
         cOL.execute();
     }
 
-    @Override
-    public void onRestart(){
-        super.onRestart();
-        finish();
-        startActivity(getIntent());
-    }
-
     public class createObiektList extends AsyncTask<String,String,String>{
 
-        int obiekt_id, kryty, szatnia, oplata, aktywny, wojewodztwo;
-        String miejscowosc, nazwa, ulica, numer_lokalu, kod_pocztowy, email,  telefon, numer_rachunku, opis, kierownik_kontak;
+        int obiekt_id, kryty, szatnia, oplata, aktywny;
+        String miejscowosc, nazwa, ulica, numer_lokalu, wojewodztwo, kod_pocztowy, email,  telefon, numer_rachunku, opis;
 
         @Override
         protected void onPreExecute() {
@@ -83,7 +74,7 @@ public class ZarzadzanieAdmin extends AppCompatActivity {
                     miejscowosc = resultSet.getString(3);
                     ulica = resultSet.getString(4);
                     numer_lokalu = resultSet.getString(5);
-                    wojewodztwo = resultSet.getInt(6);
+                    wojewodztwo = resultSet.getString(6);
                     kod_pocztowy = resultSet.getString(7);
                     email = resultSet.getString(8);
                     telefon = resultSet.getString(9);
@@ -93,10 +84,9 @@ public class ZarzadzanieAdmin extends AppCompatActivity {
                     numer_rachunku = resultSet.getString(13);
                     opis = resultSet.getString(14);
                     aktywny = resultSet.getInt(15);
-                    kierownik_kontak = resultSet.getString(16);
-                    java.sql.Timestamp dbSqlTimestamp = resultSet.getTimestamp(17);
+                    java.sql.Timestamp dbSqlTimestamp = resultSet.getTimestamp(16);
 
-                    obiektyList.add(new ObiektDoWeryfikacji(R.drawable.gora, obiekt_id, nazwa, miejscowosc, ulica, numer_lokalu, wojewodztwo, kod_pocztowy, email, telefon, kryty, szatnia, oplata, numer_rachunku, opis, aktywny, kierownik_kontak, dbSqlTimestamp));
+                    obiektyList.add(new ObiektDoWeryfikacji(R.drawable.gora, obiekt_id, nazwa, miejscowosc, ulica, numer_lokalu, wojewodztwo, kod_pocztowy, email, telefon, kryty, szatnia, oplata, numer_rachunku, opis, aktywny, dbSqlTimestamp));
 
                     Log.i("while","dodaje obiekt: " + nazwa + " " + ulica + " " + miejscowosc);
                 }

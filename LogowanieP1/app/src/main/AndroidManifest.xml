@@ -3,9 +3,6 @@
     package="com.example.logowaniep1">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name=" android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SzczegolyObiekt"></activity>
+        <activity android:name=".BaseActivity"></activity>
+        <activity android:name=".PaymentDetails" />
+        <activity android:name=".Zaplac" />
+        <activity android:name=".SpisUzytkownikow" />
         <activity android:name=".SzczegolyAdminActivity" />
         <activity android:name=".ZarzadzanieAdmin" />
         <activity android:name=".PrzegladWydarzen" />
@@ -34,15 +34,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/maps_api_key" />
-
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
     </application>
 
 </manifest>

@@ -18,4 +18,5 @@
 
     <string name="akceptuj">Akceptuj</string>
     <string name="odrzuc">Odrzuć</string>
+    <string name="title_activity_zaplac">FullscreenActivity</string>
 </resources>

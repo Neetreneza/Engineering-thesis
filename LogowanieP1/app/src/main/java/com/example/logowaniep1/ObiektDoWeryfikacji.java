@@ -8,8 +8,8 @@ import java.util.Date;
 
 public class ObiektDoWeryfikacji implements Parcelable {
 
-    private int imageResource, obiekt_id, kryty, szatnia, oplata, aktywny, wojewodztwo;
-    private String nazwa, miejscowosc, ulica, numer_lokalu, kod_pocztowy, email,  telefon, numer_rachunku, opis, kierownik_kontakt;
+    private int imageResource, obiekt_id, kryty, szatnia, oplata, aktywny;
+    private String nazwa, miejscowosc, ulica, numer_lokalu, wojewodztwo, kod_pocztowy, email,  telefon, numer_rachunku, opis;
     private Timestamp data;
 
     protected ObiektDoWeryfikacji(Parcel in) {
@@ -23,13 +23,12 @@ public class ObiektDoWeryfikacji implements Parcelable {
         miejscowosc = in.readString();
         ulica = in.readString();
         numer_lokalu = in.readString();
-        wojewodztwo = in.readInt();
+        wojewodztwo = in.readString();
         kod_pocztowy = in.readString();
         email = in.readString();
         telefon = in.readString();
         numer_rachunku = in.readString();
         opis = in.readString();
-        kierownik_kontakt = in.readString();
     }
 
     public static final Creator<ObiektDoWeryfikacji> CREATOR = new Creator<ObiektDoWeryfikacji>() {
@@ -80,7 +79,7 @@ public class ObiektDoWeryfikacji implements Parcelable {
         return numer_lokalu;
     }
 
-    public int getWojewodztwo() {
+    public String getWojewodztwo() {
         return wojewodztwo;
     }
 
@@ -108,16 +107,12 @@ public class ObiektDoWeryfikacji implements Parcelable {
         return aktywny;
     }
 
-    public String getKierownik_kontakt() {
-        return kierownik_kontakt;
-    }
-
     public Timestamp getData() {
         return data;
     }
 
     //konstruktor
-    public ObiektDoWeryfikacji(int image, int id, String txt1, String txt2, String txt3, String txt4, int txt5, String txt6, String txt7, String txt8, int txt9, int txt10, int txt11, String txt12, String txt13, int txt14, String txt15, Timestamp data1) {
+    public ObiektDoWeryfikacji(int image, int id, String txt1, String txt2, String txt3, String txt4, String txt5, String txt6, String txt7, String txt8, int txt9, int txt10, int txt11, String txt12, String txt13, int txt14, Timestamp data1) {
         imageResource = image;
         obiekt_id = id;
         nazwa = txt1;
@@ -134,7 +129,6 @@ public class ObiektDoWeryfikacji implements Parcelable {
         numer_rachunku = txt12;
         opis = txt13;
         aktywny = txt14;
-        kierownik_kontakt = txt15;
         data = data1;
     }
 
@@ -155,12 +149,11 @@ public class ObiektDoWeryfikacji implements Parcelable {
         dest.writeString(miejscowosc);
         dest.writeString(ulica);
         dest.writeString(numer_lokalu);
-        dest.writeInt(wojewodztwo);
+        dest.writeString(wojewodztwo);
         dest.writeString(kod_pocztowy);
         dest.writeString(email);
         dest.writeString(telefon);
         dest.writeString(numer_rachunku);
         dest.writeString(opis);
-        dest.writeString(kierownik_kontakt);
     }
 }

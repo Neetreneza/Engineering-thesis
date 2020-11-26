@@ -139,8 +139,6 @@ public class DodajWydarzenie extends AppCompatActivity implements DatePickerDial
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dodaj_wydarzenie);
 
-        this.setTitle("Utwórz wydarzenie");
-
         dodajWydarzenie = (Button) findViewById(R.id.dodajWydarzenieButton1);
         szukajObiektu = (Button) findViewById(R.id.znajdzObiektDoWydarzeniaB);
         wybierzDate = (Button) findViewById(R.id.wybierzDateDodajWydarzenieB);
