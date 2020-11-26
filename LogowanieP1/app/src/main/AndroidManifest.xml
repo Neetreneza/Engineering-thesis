@@ -11,9 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SzczegolyAdminActivity"></activity>
+        <activity android:name=".BaseActivity"></activity>
+        <activity android:name=".PaymentDetails" />
+        <activity android:name=".Zaplac" />
+        <activity android:name=".SpisUzytkownikow" />
+        <activity android:name=".SzczegolyAdminActivity" />
         <activity android:name=".ZarzadzanieAdmin" />
-        <activity android:name=".PrzegladWydarzen"></activity>
+        <activity android:name=".PrzegladWydarzen" />
         <activity android:name=".DodajObiekt" />
         <activity android:name=".Rejestracja" />
         <activity android:name=".Obiekty" />

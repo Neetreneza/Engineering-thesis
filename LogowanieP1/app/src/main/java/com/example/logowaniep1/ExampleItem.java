@@ -2,22 +2,24 @@ package com.example.logowaniep1;
 
 public class ExampleItem {
     private int imageResource,imageResource2;
-    private String text1,text2,start,koniec,headUser,miejsceE, obiektId, opis;
-    int wydarzenieId;
+    private String text1,text2,start,koniec,headUser,miejsceE, obiektId, opis, imie, nazwisko;
+    int wydarzenieId, status;
 
-    public ExampleItem(int image , String txt1, String txt2, String startWe, String koniecWe, int image2, String headUserWe, String miejsce, String obiektIdWe, int wydarzenieIdWe, String opisWe)
+    public ExampleItem(int image , String txt1, String txt2, String startWe, String koniecWe, String headUserWe, String miejsce, String obiektIdWe, int wydarzenieIdWe, String opisWe, String imieWe, String nazwiskoWe, int statusWe)
     {
         imageResource = image;
         text1 = txt1;
         text2 = txt2;
         start = startWe;
         koniec = koniecWe;
-        imageResource2 = image2;
         headUser = headUserWe;
         miejsceE = miejsce;
         obiektId = obiektIdWe;
         wydarzenieId = wydarzenieIdWe;
         opis = opisWe;
+        imie = imieWe;
+        nazwisko = nazwiskoWe;
+        status = statusWe;
     }
 
     public int getImageResource()
@@ -30,6 +32,19 @@ public class ExampleItem {
     {
         text1 = t;
     }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public String getImie() {
+        return imie;
+    }
+
+    public String getNazwisko() {
+        return nazwisko;
+    }
+
     public String getMiejsceE()
     {
         return miejsceE;

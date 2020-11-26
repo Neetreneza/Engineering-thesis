@@ -1,11 +1,16 @@
 package com.example.logowaniep1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -34,7 +41,7 @@ public class Profil extends AppCompatActivity {
     Button pilkaL, pilkaM, pilkaH,  koszL, koszM, koszH, zapisz;
     String  nazwaRT, emailRT, dataUrodzeniaRT, telefonRT, nazwiskoRT, identyfikatorUzytkownikaEmail;
     ImageView ustawienia;
-    int licz=1, identyfikatorUzytkownika;
+    int licz=1, identyfikatorUzytkownika, idUzytkownika; //id uzytkownika = id podane od spisu uzytkownikow, osoba inna niz aktualnie zalogowany
 
     ProgressDialog progressDialog;
 
@@ -98,6 +105,21 @@ public class Profil extends AppCompatActivity {
         schowajZnajomych.setVisibility(GONE);
         schowajUmiejetnosci.setVisibility(GONE);
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationViewProfil);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(3);
+        menuItem.setChecked(true);
+
+
+        if(getIntent() != null) {
+
+            Intent intent = getIntent();
+            idUzytkownika = intent.getIntExtra("id", 0); //Identyfikator uzytkownika ktorego profil chcemy otworzyc
+            if(idUzytkownika != 0)
+            identyfikatorUzytkownika = idUzytkownika;
+            Log.i("intent","IDUZYTKOWNIKA: "+ identyfikatorUzytkownika);
+        }
 
 
         Profilowanie profilowanie = new Profilowanie();
@@ -127,7 +149,8 @@ public class Profil extends AppCompatActivity {
                 connection = ConnectionManager.getConnection();
                 statement = connection.createStatement();
 
-                ResultSet resultSet = statement.executeQuery("SELECT imie, nazwisko, email, telefon, ocena, data_urodzenia FROM uzytkownik where email ='"+identyfikatorUzytkownika+"'");
+                ResultSet resultSet = statement.executeQuery("SELECT imie, nazwisko, email, telefon, ocena, data_urodzenia FROM uzytkownik where uzytkownik_id ='"+identyfikatorUzytkownika+"'");
+                Log.i("test2","Wybieram usera nr:"+ identyfikatorUzytkownika);
 
                 while(resultSet.next())
                 {
@@ -146,7 +169,7 @@ public class Profil extends AppCompatActivity {
 
                 }
 
-
+                connection.close();
 
 
 
@@ -259,8 +282,10 @@ public class Profil extends AppCompatActivity {
 
                     if(blad.equals(""))
                     {
+
                         ZamienWBazie zamienWBazie = new ZamienWBazie();
                         zamienWBazie.execute();
+
                     }
                     else
                         Toast.makeText(getBaseContext(),blad, Toast.LENGTH_LONG).show();
@@ -291,32 +316,27 @@ public class Profil extends AppCompatActivity {
 
     private void otworzUstawienia()
     {
-        if(licz==1)
-        {
-            nazwaUzytkownika.setEnabled(true);
-            emailUzytkownika.setEnabled(true);
-            dataUrodzeniaUzytkownika.setEnabled(true);
-            telefon.setEnabled(true);
-            nazwiskoUzytkownika.setEnabled(true);
-            zapisz.setVisibility(View.VISIBLE);
-            licz = 0;
+        if(Singleton.getInstance().getUzytkownikID() == identyfikatorUzytkownika) {
+            if (licz == 1) {
+                nazwaUzytkownika.setEnabled(true);
+                emailUzytkownika.setEnabled(true);
+                dataUrodzeniaUzytkownika.setEnabled(true);
+                telefon.setEnabled(true);
+                nazwiskoUzytkownika.setEnabled(true);
+                zapisz.setVisibility(View.VISIBLE);
+                licz = 0;
+            } else {
+                nazwaUzytkownika.setEnabled(false);
+                emailUzytkownika.setEnabled(false);
+                dataUrodzeniaUzytkownika.setEnabled(false);
+                telefon.setEnabled(false);
+                nazwiskoUzytkownika.setEnabled(false);
+                zapisz.setVisibility(GONE);
+                licz = 1;
+            }
+
+
         }
-        else
-        {
-            nazwaUzytkownika.setEnabled(false);
-            emailUzytkownika.setEnabled(false);
-            dataUrodzeniaUzytkownika.setEnabled(false);
-            telefon.setEnabled(false);
-            nazwiskoUzytkownika.setEnabled(false);
-            zapisz.setVisibility(GONE);
-            licz = 1;
-        }
-
-
-
-
-
-
     }
 
 
@@ -445,4 +465,35 @@ public class Profil extends AppCompatActivity {
             progressDialog.hide();
         }
     }
+
+    public BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Intent intent = null;
+            switch (item.getItemId())
+            {
+                case R.id.nav_glowna:
+                    intent = new Intent(getBaseContext(), MainActivity.class);
+                    break;
+                case R.id.nav_obiekty:
+                    intent = new Intent(getBaseContext(), Obiekty.class);
+                    break;
+                case R.id.nav_wydarzenia:
+                    intent = new Intent(getBaseContext(), Wydarzenia.class);
+                    break;
+                case R.id.nav_profil:
+                    //intent = new Intent(getBaseContext(), Profil.class);
+                    break;
+                case R.id.nav_uzytkownicy:
+                    intent = new Intent(getBaseContext(), SpisUzytkownikow.class);
+                    break;
+            }
+            if(intent != null) {
+                startActivity(intent);
+                return true;
+            }
+            else
+                return false;
+        }
+    };
 }

@@ -1,7 +1,9 @@
 package com.example.logowaniep1;
 
 //TODO OnPluskClick zwraca wartość id obiektu, ktory mozna dodac do formularza dodawania wydarzenia
+//TODO POPRAWIC FORMULARZ
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -43,6 +47,8 @@ public class Obiekty extends AppCompatActivity {
     private Statement statement = null;
     private ResultSet resultSet = null;
 
+    BottomNavigationView bottomNavigationViewObiekty;
+
 
 
     @Override
@@ -57,7 +63,12 @@ public class Obiekty extends AppCompatActivity {
         filtrowanieLayout = (LinearLayout) findViewById(R.id.filtrowanieLayout);
         //szczegolyObiektu = (LinearLayout) findViewById(R.id.szczegolyObiektuLayout);
 
-        filtrowanieLayout.setVisibility(View.GONE);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationViewObiektu);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
+
 
 
         if(getIntent()!=null)
@@ -69,6 +80,7 @@ public class Obiekty extends AppCompatActivity {
 
 
         createObiektList cOL = new createObiektList();
+
         cOL.execute();
         //buildRecyclerView2();
     }
@@ -104,7 +116,7 @@ public class Obiekty extends AppCompatActivity {
                 connection = ConnectionManager.getConnection();
                 statement = connection.createStatement();
 
-                ResultSet resultSet = statement.executeQuery("select obiekt.*, obiekt_cennik.*, dyscyplina.* from obiekt,obiekt_cennik, dyscyplina where aktywny = 1 and obiekt.obiekt_id = obiekt_cennik.obiekt_id and obiekt_cennik.dyscyplina_id = dyscyplina.dyscyplina_id;");
+                ResultSet resultSet = statement.executeQuery("select obiekt.*, obiekt_cennik.*, dyscyplina.* from obiekt,obiekt_cennik, dyscyplina where obiekt.obiekt_id = obiekt_cennik.obiekt_id and obiekt_cennik.dyscyplina_id = dyscyplina.dyscyplina_id");
                 while (resultSet.next()) {
 // DODAC FILTROWANIE WYNIKOW
                     Log.i("while","Czytam z wynikow");
@@ -253,5 +265,35 @@ public class Obiekty extends AppCompatActivity {
         });
         return true;
     }
+    public BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Intent intent = null;
+            switch (item.getItemId())
+            {
+                case R.id.nav_glowna:
+                    intent = new Intent(getBaseContext(), MainActivity.class);
+                    break;
+                case R.id.nav_obiekty:
+                    //intent = new Intent(getBaseContext(), Obiekty.class);
+                    break;
+                case R.id.nav_wydarzenia:
+                    intent = new Intent(getBaseContext(), Wydarzenia.class);
+                    break;
+                case R.id.nav_profil:
+                    intent = new Intent(getBaseContext(), Profil.class);
+                    break;
+                case R.id.nav_uzytkownicy:
+                    intent = new Intent(getBaseContext(), SpisUzytkownikow.class);
+                    break;
+            }
+            if(intent != null) {
+                startActivity(intent);
+                return true;
+            }
+            else
+                return false;
+        }
+    };
 
 }
